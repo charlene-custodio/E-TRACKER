@@ -1,0 +1,29 @@
+{
+  "name": "e-tracker",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Anecdotal Report &amp; Student Record Tracker",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charlene-custodio/E-TRACKER.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charlene-custodio/E-TRACKER/issues"
+  },
+  "homepage": "https://github.com/charlene-custodio/E-TRACKER#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
