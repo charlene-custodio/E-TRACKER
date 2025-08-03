@@ -1,0 +1,238 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #192444;
+}
+/* Sidebar */
+.sidebar {
+  z-index: 3;
+  background-color: #ffffff;
+  padding: 20px 10px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-right: 1px solid #eee;
+  
+}
+
+.sidebar-link {
+  text-decoration: none;
+  background-color: #C6D6F0;
+  color: #192444;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.sidebar-link:hover {
+  background-color: #a8c0e0;
+}
+
+.sidebar-link.active {
+  background-color: #192444;
+  color: #ffffff;
+}
+/* Top Navbar */
+.navbar {
+  background-color: #192444;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 1;
+}
+
+.nav-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.app-name h2 {
+  font-size: 18px;
+}
+
+.app-name p {
+  font-size: 12px;
+  margin-top: -5px;
+}
+
+/* Right section of navbar */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.notification {
+  position: relative;
+}
+
+.notification .icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.notif-count {
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  border-radius: 50%;
+  padding: 2px 6px;
+  position: absolute;
+  top: -5px;
+  right: -10px;
+}
+
+.admin-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.admin-avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+/* Container for sidebar + content */
+.container {
+  display: flex;
+  height: calc(100vh - 70px); 
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  padding: 30px;
+}
+
+/* Dashboard Content */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.top-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: #C6D6F0;
+  width: 250px;
+}
+
+.add-btn {
+  padding: 10px 15px;
+  border: none;
+  background-color: #192444;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.add-btn:hover {
+  background-color: #0e1a33;
+}
+
+/* Student Cards Grid */
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.student-card {
+  background: #192444;
+  border-radius: 10px;
+  box-shadow: 0 3px 9px rgba(0,0,0,0.04); 
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 120px;
+  border: 2px solid #000;
+  transition: box-shadow 0.2s, transform 0.2s; 
+}
+
+.student-card:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15); 
+  transform: translateY(-4px); 
+}
+.student-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 0;
+}
+
+.student-info h3 {
+  flex: 1;
+  text-align: left;
+  margin: 5px 0;
+  font-size: 18px;
+  color:#fff;
+}
+
+.student-info p {
+  flex: 1;
+  text-align: left;
+  font-size: 14px;
+  color: #C6D6F0;
+}
+
+/* Card action icons */
+.card-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px; 
+}
+
+.btn-icon {
+  background-color: #C6D6F0;
+  color: #192444;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.btn-icon:hover {
+  background-color: #a8bde0;
+}
+
