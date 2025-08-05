@@ -8,8 +8,6 @@
 </head>
 <body>
 
-
-  
    <header class="navbar">
     <div class="nav-title">
       <img src="images/logo.png" alt="Logo" class="logo"/>
@@ -26,6 +24,7 @@
       <div class="admin-info">
         <img src="images/Amborong_ID.jpg" alt="Admin" class="admin-avatar"/>
         <span><%= user.username || "User" %></span>
+        <span><%= user.role || "User" %></span>
       </div>
     </div>
   </header>
@@ -50,21 +49,18 @@
     <span class="icon">◼◼</span>
     <span>Settings</span>
   </a>
-
-
   <a href="/logout" class="sidebar-link">
   <span class="icon">◼◼</span>
   <span>Logout</span>
 </a>
 
 </aside>
-
-    </aside>
+</aside>
 
 <main class="main-content">
   <!-- Dashboard Title + Top Actions -->
   <div class="dashboard-header">
-    <h1>E-SCHOLARS Portal | <%= user.username %></h1>
+    <h1>E-SCHOLARS Portal | <%= user.full_name %></h1>
 
     <div class="top-controls">
       <input type="text" placeholder="Search" class="search-input" />
@@ -72,20 +68,23 @@
     </div>
   </div>
 
-  <!-- Students Card Grid -->
-  <div class="students-grid">
-    <!-- Student Card -->
-
+    <!-- Students Card Grid -->
+<div class="students-grid">
+  <% students.forEach(function(student) { %>
     <div class="student-card">
-      <img src="images/Gonzaga_ID.jpg.jpg" alt="Student Avatar" class="student-avatar" />
+      <img src="<%= student.id_picture %>" alt="Student Avatar" class="student-avatar" />
       <div class="student-info">
-        <h3>Gonzaga, Arkin Jay</h3>
-        <p>Grade 9 Student</p>
+        <h3><%= student.name %></h3>
+        <p>Grade <%= student.grade_level %> Student</p>
+        <p><%= student.sex %></p>
       </div>
       <div class="card-actions">
-        <a href="edit-student.html" class="btn-icon" title="Edit Student">✍️</a>
-        <a href="anecdotal-report.html" class="btn-icon" title="View Report">🔎</a>
+        <a href="edit-student.html?id=<%= student.id %>" class="btn-icon" title="Edit Student">✍️</a>
+        <a href="anecdotal-report.html?student_id=<%= student.id %>" class="btn-icon" title="View Report">🔎</a>
       </div>
+    </div>
+  <% }); %>
+
     </div> 
     
     </div>
