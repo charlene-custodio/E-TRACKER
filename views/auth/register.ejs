@@ -5,63 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Register | E-TRACKER</title>
   <link rel="stylesheet" href="/css/register.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
 </head>
 <body>
-<div class="container">
-  <div class="form-box">
-    <div class="blue-container">
-      <div class="form-header" style="display: flex; gap: 12px;">
-        <img src="/images/logo.png" alt="Logo" class="logo" style="height: 48px;"/>
+  <div class="register-container">
+    <!-- Left Section (Form) -->
+    <div class="register-left">
+      <div class="register-header">
+        <img src="/images/logo.png" alt="E-TRACKER Logo" class="register-main-logo" />
         <div>
-          <h2 class="no-margin">E-TRACKER</h2>
-          <h4 class="no-margin tagline">anecdotal report and record tracker</h4>
+          <h1 class="register-title">E-TRACKER</h1>
+          <h4 class="register-subtitle">Anecdotal Report & Student Record Tracker</h4>
         </div>
       </div>
+      <div class="register-form-section">
+        <h2 class="register-form-title">Tutor Register</h2>
+        <% if (error) { %>
+          <p class="error"><%= error %></p>
+        <% } %>
+        <form action="/register" method="POST" autocomplete="off">
+          <div class="input-group">
+            <label>Username</label>
+            <input name="username" type="text" required autocomplete="username" placeholder="Username" />
+          </div>
+          <div class="input-group">
+            <label>Password</label>
+            <input name="password" type="password" required autocomplete="new-password" placeholder="Password" />
+          </div>
+          <div class="input-group">
+            <label>Full Name</label>
+            <input name="full_name" required autocomplete="name" placeholder="Full Name" />
+          </div>
+          <div class="input-group">
+            <label>Role</label>
+            <select name="role" required>
+              <option value="tutor">Tutor</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <button type="submit" class="register-btn">Register</button>
+        </form>
+        <p class="login-link">Already have an account? <a href="/login">Login</a></p>
+      </div>
     </div>
-    <h2>Register</h2>
-
-      <% if (error) { %>
-        <p class="error"><%= error %></p>
-      <% } %>
-
-      <form action="/register" method="POST">
-        <div class="input-group">
-          <label>Username</label>
-          <input name="username" required />
+    <!-- Right Section (Image and Branding) -->
+    <div class="register-right">
+      <div class="register-right-overlay">
+        <div class="register-right-content">
+          <h1 class="register-right-big-title">E-TRACKER</h1>
+          <p class="register-right-tagline">
+            Your Partner in Fostering Student Progress,<br>
+            Monitoring Interventions, and Supporting Growth.
+          </p>
         </div>
-
-        <div class="input-group">
-          <label>Password</label>
-          <input name="password" type="password" required />
-        </div>
-
-        <div class="input-group">
-          <label>Full Name</label>
-          <input name="full_name" required />
-        </div>
-
-        <div class="input-group">
-          <label>Role</label>
-          <select name="role" required>
-            <option value="tutor">Tutor</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
-
-        <button type="submit">Register</button>
-      </form>
-
-      <p class="login-link">Already have an account? <a href="/login">Login</a></p>
-    </div>
-
-    <div class="right">
-      <div class="overlay">
-        <img src="/images/logo.png" alt="Logo" class="logo" />
-        <p class="tagline">
-          Your Partner in Fostering Student Progress,<br>
-          Monitoring Interventions, and Supporting Growth.
-        </p>
-        <h1>E-TRACKER</h1>
       </div>
     </div>
   </div>

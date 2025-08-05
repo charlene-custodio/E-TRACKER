@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
+/* --- SHARED STYLES (container, right side, and form) --- */
 :root {
   --main-blue: #23335a;
   --accent-blue: #3f5aaa;
@@ -21,7 +22,6 @@ body {
   align-items: center;
 }
 
-/* Main Container */
 .register-container {
   width: 100%;
   max-width: 1080px;
@@ -34,7 +34,7 @@ body {
   overflow: hidden;
 }
 
-/* Left Section (Form) - DO NOT ADJUST */
+/* --- LEFT SIDE (Form, copied from register.css for consistency) --- */
 .register-left {
   flex: 1.03;
   background: rgba(25,36,68, 0.92);
@@ -109,14 +109,13 @@ body {
   letter-spacing: 0.1px;
 }
 
-.input-group input,
-.input-group select {
+.input-group input {
   display: block;
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
   padding: 12px 18px;
-  border-radius: 10px;
+  border-radius: 24px;
   border: 1.2px solid var(--input-border);
   font-size: 16px;
   background: var(--input-bg);
@@ -125,12 +124,6 @@ body {
   outline: none;
   margin-top: 2px;
   transition: border 0.2s, background 0.2s, color 0.2s;
-  appearance: none;
-}
-
-.input-group select {
-  background: var(--input-bg) url("data:image/svg+xml,%3Csvg width='16' height='16' fill='gray' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%23a9b6d6' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 16px center/18px 18px;
-  padding-right: 38px;
 }
 
 .input-group input::placeholder {
@@ -138,8 +131,7 @@ body {
   opacity: 1;
 }
 
-.input-group input:focus,
-.input-group select:focus {
+.input-group input:focus {
   border: 1.8px solid var(--accent-blue);
   background: var(--input-focus-bg);
   color: #fff;
@@ -149,7 +141,7 @@ body {
   width: 100%;
   padding: 13px;
   border: none;
-  border-radius: 10px;
+  border-radius: 24px;
   background: linear-gradient(90deg, #3F5AAA 0%, #23335a 100%);
   color: #fff;
   font-size: 1.09rem;
@@ -199,7 +191,7 @@ body {
   text-decoration: underline;
 }
 
-/* Right Section (Image & Tagline) - CENTER THE CONTENT */
+/* --- RIGHT SIDE (centered content) --- */
 .register-right {
   flex: 1.3;
   min-width: 370px;
@@ -219,9 +211,8 @@ body {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  /* Center the content vertically and horizontally */
-  justify-content: center;
-  align-items: center;
+  justify-content: center;   /* center vertically */
+  align-items: center;       /* center horizontally */
   padding: 0;
 }
 
@@ -239,7 +230,6 @@ body {
 
 .register-right-tagline {
   font-size: 1rem;
-  line-height: 1.45;
   color: #fff;
   font-weight: 500;
   margin-bottom: 18px;
