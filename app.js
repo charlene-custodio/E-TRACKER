@@ -42,6 +42,8 @@ app.use("/", authRoutes);
 app.use("/", adminRoutes);
 app.use("/", tutorRoutes);
 
+import studentRoutes from "./routes/studentRoutes.js";
+app.use("/", studentRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
