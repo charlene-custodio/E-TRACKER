@@ -15,4 +15,4 @@ router.get("/add_student", requireAuth, requireTutor, (req, res) => {
 });
 router.post("/add_student", requireAuth, requireTutor, upload.single('id_picture'), addStudentController);
 
-export default router;
+export default router; 

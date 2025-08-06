@@ -6,50 +6,87 @@ document.addEventListener('DOMContentLoaded', function() {
       const response = await fetch(`/student/${studentId}`);
       if (!response.ok) return alert("Student not found.");
       const data = await response.json();
-      showStudentModal(data);
+      showStudentModal(data, false);
     });
   });
 });
 
-// Function to show modal and inject HTML
-function showStudentModal(data) {
-  // Format birthday for modern UX
-  const birthday = data.birthday 
-    ? new Date(data.birthday).toLocaleDateString('en-CA') // e.g. "2025-08-05"
+// Helper to render the student modal, edit or view mode
+function showStudentModal(data, isEditing = false) {
+  const modal = document.getElementById('viewStudentModal');
+  const birthday = data.birthday
+    ? new Date(data.birthday).toISOString().slice(0, 10)
     : '';
 
-  const modal = document.getElementById('viewStudentModal');
+  // Helper for rendering input or plain text
+  const field = (key, label, type = "text") => isEditing
+    ? `<label><strong>${label}:</strong> <input name="${key}" value="${data[key] ?? ''}" type="${type}" /></label><br>`
+    : `<strong>${label}:</strong> ${data[key] ?? ''}<br>`;
+
   modal.querySelector('.modal-content').innerHTML = `
     <img src="/uploads/${data.id_picture}" class="student-avatar" alt="Student Avatar"/>
-    <div>
-      <strong>Name:</strong> ${data.name}<br>
-      <strong>Grade Level:</strong> ${data.grade_level}<br>
-      <strong>School:</strong> ${data.school_name}
-    </div>
-    <div>
-      <h3>Personal Information</h3>
-      <strong>Birthday:</strong> ${birthday}<br>
-      <strong>Age:</strong> ${data.age}<br>
-      <strong>Sex:</strong> ${data.sex}<br>
-      <strong>Address:</strong> ${data.address}<br>
-      <strong>Guardian:</strong> ${data.guardian}<br>
-      <strong>Contact:</strong> ${data.contact}
-    </div>
-    <div>
-      <h3>Academic Information</h3>
-      <strong>School Year:</strong> ${data.school_year}<br>
-      <strong>LRN:</strong> ${data.lrn}<br>
-      <strong>Section:</strong> ${data.section}<br>
-      <strong>Enrollment Status:</strong> ${data.enrollment_status}<br>
-      <strong>Adviser:</strong> ${data.adviser}<br>
-      <strong>Learning Difficulty:</strong> ${data.learning_difficulty}
-    </div>
-    <button id="editBtn">Edit Information</button>
-    <button id="backBtn">Back to Students</button>
+    <form id="studentEditForm">
+      <div>
+        <h3>Personal Information</h3>
+        ${field('name', 'Name')}
+        ${field('grade_level', 'Grade Level')}
+        ${field('school_name', 'School')}
+        ${isEditing
+          ? `<label><strong>Birthday:</strong> <input name="birthday" value="${birthday}" type="date" /></label><br>`
+          : `<strong>Birthday:</strong> ${birthday}<br>`
+        }
+        ${field('age', 'Age', 'number')}
+        ${field('sex', 'Sex')}
+        ${field('address', 'Address')}
+        ${field('guardian', 'Guardian')}
+        ${field('contact', 'Contact')}
+      </div>
+      <div>
+        <h3>Academic Information</h3>
+        ${field('school_year', 'School Year')}
+        ${field('lrn', 'LRN')}
+        ${field('section', 'Section')}
+        ${field('enrollment_status', 'Enrollment Status')}
+        ${field('adviser', 'Adviser')}
+        ${field('learning_difficulty', 'Learning Difficulty')}
+      </div>
+      <div style="margin-top:20px;">
+        ${isEditing
+          ? `<button type="submit" id="saveBtn">Save</button>
+             <button type="button" id="cancelBtn">Cancel</button>`
+          : `<button type="button" id="editBtn">Edit Information</button>`
+        }
+        <button type="button" id="backBtn">Back to Students</button>
+      </div>
+    </form>
   `;
   modal.style.display = 'block';
 
+  // Button Events
   document.getElementById('backBtn').onclick = () => {
     modal.style.display = 'none';
   };
+  if (isEditing) {
+    document.getElementById('cancelBtn').onclick = (e) => {
+      e.preventDefault();
+      showStudentModal(data, false);
+    };
+    document.getElementById('studentEditForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const formData = Object.fromEntries(new FormData(this).entries());
+      const updateRes = await fetch(`/student/${data.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      if (!updateRes.ok) return alert("Failed to update.");
+      const updated = await updateRes.json();
+      showStudentModal(updated, false);
+    };
+  } else {
+    document.getElementById('editBtn').onclick = (e) => {
+      e.preventDefault();
+      showStudentModal(data, true);
+    };
+  }
 }
