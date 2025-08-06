@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Student | E-TRACKER</title>
+  <link rel="stylesheet" href="css/add_student.css"/>
+</head>
+<body>
+  <div class="add-student-container">
+    <div class="form-header">
+      <img src="images/logo.png" alt="E-TRACKER Logo" class="logo"/>
+      <h2>Add New Student</h2>
+      <p class="subtitle">Fill in the details below</p>
+    </div>
+
+    <form class="student-form" enctype="multipart/form-data" method="POST" action="/add_student">
+      <div class="avatar-upload">
+        <label for="id_picture">
+          <img src="images/avatar-placeholder.png" alt="Student Photo" id="preview" class="avatar-preview"/>
+        </label>
+        <input type="file" id="id_picture" name="id_picture" accept="image/*" onchange="previewImage(event)" hidden/>
+        <button type="button" onclick="document.getElementById('id_picture').click()" class="upload-btn">Upload Photo</button>
+      </div>
+
+      <div class="input-group">
+        <label for="name">Full name</label>
+        <input type="text" id="name" name="name" required/>
+      </div>
+      <div class="input-group">
+        <label for="lrn">LRN</label>
+        <input type="text" name="lrn" id="lrn" required />
+      </div>
+      <div class="input-group">
+        <label for="grade_level">Grade Level</label>
+        <select id="grade_level" name="grade_level" required>
+          <option value="">Select grade</option>
+
+          <option value="7">1</option>
+          <option value="7">2</option>
+          <option value="7">3</option>
+          <option value="7">4</option>
+          <option value="7">5</option>
+          <option value="7">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="school_name">School Name</label>
+        <input type="text" id="school_name" name="school_name" required/>
+      </div>
+      <div class="input-row">
+        <div class="input-group">
+          <label for="birthday">Birthday</label>
+          <input type="date" id="birthday" name="birthday" required/>
+        </div>
+        <div class="input-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" name="age" min="1" max="30" required/>
+        </div>
+      </div>
+      <div class="input-group">
+  <label for="sex">Sex</label>
+  <div class="radio-row">
+    <label class="radio-label">
+      <input type="radio" name="sex" value="Male" required /> Male
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="sex" value="Female" required /> Female
+    </label>
+  </div>
+</div>
+      <div class="input-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" required/>
+      </div>
+      <div class="input-group">
+        <label for="guardian">Guardian Name</label>
+        <input type="text" id="guardian" name="guardian"/>
+      </div>
+      <div class="input-group">
+        <label for="contact">Contact Number</label>
+        <input type="tel" id="contact" name="contact"/>
+      </div>
+      <div class="input-row">
+        <div class="input-group">
+          <label for="school_year">School Year</label>
+          <input type="text" id="school_year" name="school_year"/>
+        </div>
+        <div class="input-group">
+          <label for="section">Section</label>
+          <input type="text" id="section" name="section"/>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="adviser">Adviser Name</label>
+        <input type="text" id="adviser" name="adviser"/>
+      </div>
+      <div class="input-group">
+        <label for="enrollment_status">Enrollment Status</label>
+        <select id="enrollment_status" name="enrollment_status">
+          <option value="">Select status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="learning_difficulty">Learning Difficulty (optional)</label>
+        <textarea id="learning_difficulty" name="learning_difficulty" rows="2"></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="primary-btn">Add Student</button>
+        <a href="/dashboard" class="secondary-btn">Cancel</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function previewImage(event) {
+      const input = event.target;
+      const preview = document.getElementById('preview');
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+</body>
+</html>
