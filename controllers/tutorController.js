@@ -1,28 +1,15 @@
-//tutorController.js
-
-import { getAllStudents } from "../models/studentModel.js";
+import { getStudentsByTutor } from "../models/studentModel.js";
 
 export async function showDashboard(req, res) {
-  try {
-    const students = await getAllStudents();
-    res.render("dashboard", {
-      user: {
-        username: req.session.username,
-        full_name: req.session.full_name,
-        role: req.session.role
-      },
-      students // Pass students array to dashboard
-    });
-  } catch (err) {
-    console.error(err);
-    res.render("dashboard", {
-      user: {
-        username: req.session.username,
-        full_name: req.session.full_name,
-        role: req.session.role
-      },
-      students: [],
-      error: "Failed to load students. Please try again."
-    });
-  }
+  // Use session userId to get only this tutor's students
+  const students = await getStudentsByTutor(req.session.userId);
+
+  res.render("dashboard", {
+    user: {
+      username: req.session.username,
+      full_name: req.session.full_name,
+      role: req.session.role
+    },
+    students
+  });
 }

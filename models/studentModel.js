@@ -73,3 +73,14 @@ export async function updateStudentById(id, data) {
   );
   return result.rows[0];
 }
+
+export async function getStudentsByTutor(tutorId) {
+  const result = await pool.query(
+    `SELECT id, id_picture, name, grade_level, sex
+     FROM students
+     WHERE created_by = $1
+     ORDER BY created_at DESC`,
+    [tutorId]
+  );
+  return result.rows;
+}
