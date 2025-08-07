@@ -82,6 +82,7 @@ function showStudentModal(data, isEditing = false) {
       if (!updateRes.ok) return alert("Failed to update.");
       const updated = await updateRes.json();
       showStudentModal(updated, false);
+      updateStudentCard(updated); // <-- Update dashboard on save
     };
   } else {
     document.getElementById('editBtn').onclick = (e) => {
@@ -89,4 +90,17 @@ function showStudentModal(data, isEditing = false) {
       showStudentModal(data, true);
     };
   }
+}
+
+// Update student card in dashboard
+function updateStudentCard(student) {
+  // Find the student card using the data-id attribute
+  const card = document.querySelector(`.view-student-btn[data-id="${student.id}"]`).closest('.student-card');
+  if (!card) return;
+
+  // Update card's avatar, name, grade, sex
+  card.querySelector('.student-avatar').src = `/uploads/${student.id_picture}`;
+  card.querySelector('.student-info h3').textContent = student.name;
+  card.querySelector('.student-info p:nth-child(2)').textContent = `Grade ${student.grade_level} Student`;
+  card.querySelector('.student-info p:nth-child(3)').textContent = student.sex;
 }
