@@ -22,7 +22,6 @@
         <span class="notif-count">12</span>
       </div>
       <div class="admin-info">
-        <img src="images/Amborong_ID.jpg" alt="Admin" class="admin-avatar"/>
         <span><%= user.username || "User" %></span>
         <span><%= user.role || "User" %></span>
       </div>
@@ -63,7 +62,7 @@
     <h1>E-SCHOLARS Portal | <%= user.full_name %></h1>
 
     <div class="top-controls">
-      <input type="text" placeholder="Search" class="search-input" />
+      <input type="text" placeholder="Search" class="search-input" id="studentSearch" />
       <a href="/add_student" class="add-btn">+ Add New Student</a>
     </div>
   </div>
@@ -107,5 +106,27 @@
 </div>
 
 <script src="/js/viewStudent.js"></script>
+<script >
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('studentSearch');
+  const studentCards = document.querySelectorAll('.student-card');
+
+  searchInput.addEventListener('input', function() {
+    const query = this.value.trim().toLowerCase();
+    studentCards.forEach(card => {
+      // You can expand this to search more fields
+      const name = card.querySelector('h3').textContent.toLowerCase();
+      const grade = card.querySelector('.student-info p').textContent.toLowerCase();
+      // Combine fields if you want broader matching
+      const combined = name + ' ' + grade;
+      if (combined.includes(query)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
 </html>
 
