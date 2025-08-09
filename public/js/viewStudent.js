@@ -11,6 +11,16 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+function formatDate(dateString) {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
 // Helper to render the student modal, edit or view mode
 function showStudentModal(data, isEditing = false) {
   const modal = document.getElementById('viewStudentModal');
@@ -18,78 +28,186 @@ function showStudentModal(data, isEditing = false) {
     ? new Date(data.birthday).toISOString().slice(0, 10)
     : '';
 
-  // Helper for rendering input or plain text
-  const field = (key, label, type = "text") => isEditing
-    ? `<label><strong>${label}:</strong> <input name="${key}" value="${data[key] ?? ''}" type="${type}" /></label><br>`
-    : `<strong>${label}:</strong> ${data[key] ?? ''}<br>`;
+  if (isEditing) {
+    renderEditMode(modal, data, birthday);
+  } else {
+    renderViewMode(modal, data, birthday);
+  }
+  
+  modal.style.display = 'block';
+}
 
+function renderViewMode(modal, data, birthday) {
   modal.querySelector('.modal-content').innerHTML = `
-    <img src="/uploads/${data.id_picture}" class="student-avatar" alt="Student Avatar"/>
-    <form id="studentEditForm">
+    <div class="modal-top-header">
+      <img src="/images/logo.png" alt="E-TRACKER Logo" class="modal-logo">
       <div>
-        <h3>Personal Information</h3>
-        ${field('name', 'Name')}
-        ${field('grade_level', 'Grade Level')}
-        ${field('school_name', 'School')}
-        ${isEditing
-          ? `<label><strong>Birthday:</strong> <input name="birthday" value="${birthday}" type="date" /></label><br>`
-          : `<strong>Birthday:</strong> ${birthday}<br>`
-        }
-        ${field('age', 'Age', 'number')}
-        ${field('sex', 'Sex')}
-        ${field('address', 'Address')}
-        ${field('guardian', 'Guardian')}
-        ${field('contact', 'Contact')}
+        <h2 class="modal-title">E-TRACKER</h2>
+        <p class="modal-subtitle">Anecdotal Report & Student Record Tracker</p>
       </div>
+    </div>
+    
+    <div class="student-header">
+      <div class="student-basic-info">
+        <p><strong>Name:</strong> ${data.name || 'Not specified'}</p>
+        <p><strong>Grade Level:</strong> Grade ${data.grade_level || 'Not specified'}</p>
+        <p><strong>School:</strong> ${data.school_name || 'Not specified'}</p>
+      </div>
+      
+      <div class="student-avatar-container">
+        <img src="/uploads/${data.id_picture}" class="student-avatar" alt="Student Photo">
+      </div>
+    </div>
+
+    <div class="section-header">PERSONAL INFORMATION</div>
+    <div class="info-section">
+      <p><strong>Birthday:</strong> ${formatDate(data.birthday) || 'Not specified'}</p>
+      <p><strong>Age:</strong> ${data.age || 'Not specified'}</p>
+      <p><strong>Sex:</strong> ${data.sex || 'Not specified'}</p>
+      <p><strong>Address:</strong> ${data.address || 'Not specified'}</p>
+      <p><strong>Guardian:</strong> ${data.guardian || 'Not specified'}</p>
+      <p><strong>Contact:</strong> ${data.contact || 'Not specified'}</p>
+    </div>
+
+    <div class="section-header">ACADEMIC INFORMATION</div>
+    <div class="info-section">
+      <p><strong>School Year:</strong> ${data.school_year || 'Not specified'}</p>
+      <p><strong>LRN:</strong> ${data.lrn || 'Not specified'}</p>
+      <p><strong>Section:</strong> ${data.section || 'Not specified'}</p>
+      <p><strong>Enrollment Status:</strong> ${data.enrollment_status || 'Not specified'}</p>
+      <p><strong>Adviser:</strong> ${data.adviser || 'Not specified'}</p>
+      <p><strong>Learning Difficulty:</strong> ${data.learning_difficulty || 'Not specified'}</p>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" id="backBtn">Back to Students</button>
+      <button type="button" id="editBtn">Edit Information</button>
+    </div>
+  `;
+  
+  document.getElementById('backBtn').addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+  
+  document.getElementById('editBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    showStudentModal(data, true);
+  });
+}
+
+function renderEditMode(modal, data, birthday) {
+  modal.querySelector('.modal-content').innerHTML = `
+    <div class="modal-top-header">
+      <img src="/images/logo.png" alt="E-TRACKER Logo" class="modal-logo">
       <div>
-        <h3>Academic Information</h3>
-        ${field('school_year', 'School Year')}
-        ${field('lrn', 'LRN')}
-        ${field('section', 'Section')}
-        ${field('enrollment_status', 'Enrollment Status')}
-        ${field('adviser', 'Adviser')}
-        ${field('learning_difficulty', 'Learning Difficulty')}
+        <h2 class="modal-title">E-TRACKER</h2>
+        <p class="modal-subtitle">Anecdotal Report & Student Record Tracker</p>
       </div>
-      <div style="margin-top:20px;">
-        ${isEditing
-          ? `<button type="submit" id="saveBtn">Save</button>
-             <button type="button" id="cancelBtn">Cancel</button>`
-          : `<button type="button" id="editBtn">Edit Information</button>`
-        }
-        <button type="button" id="backBtn">Back to Students</button>
+    </div>
+    
+    <form id="studentEditForm" class="edit-mode">
+      <div class="section-header">PERSONAL INFORMATION</div>
+      <div class="info-section">
+        <div class="data-row">
+          <label class="field-label">Name</label>
+          <input name="name" value="${data.name || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Grade Level</label>
+          <input name="grade_level" value="${data.grade_level || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">School</label>
+          <input name="school_name" value="${data.school_name || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Birthday</label>
+          <input name="birthday" value="${birthday}" type="date">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Age</label>
+          <input name="age" value="${data.age || ''}" type="number">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Sex</label>
+          <input name="sex" value="${data.sex || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Address</label>
+          <input name="address" value="${data.address || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Guardian</label>
+          <input name="guardian" value="${data.guardian || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Contact</label>
+          <input name="contact" value="${data.contact || ''}" type="text">
+        </div>
+      </div>
+
+      <div class="section-header">ACADEMIC INFORMATION</div>
+      <div class="info-section">
+        <div class="data-row">
+          <label class="field-label">School Year</label>
+          <input name="school_year" value="${data.school_year || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">LRN</label>
+          <input name="lrn" value="${data.lrn || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Section</label>
+          <input name="section" value="${data.section || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Enrollment Status</label>
+          <input name="enrollment_status" value="${data.enrollment_status || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Adviser</label>
+          <input name="adviser" value="${data.adviser || ''}" type="text">
+        </div>
+        <div class="data-row">
+          <label class="field-label">Learning Difficulty</label>
+          <input name="learning_difficulty" value="${data.learning_difficulty || ''}" type="text">
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" id="cancelBtn">Cancel</button>
+        <button type="submit" id="saveBtn">Save Changes</button>
       </div>
     </form>
   `;
-  modal.style.display = 'block';
-
-  // Button Events
-  document.getElementById('backBtn').onclick = () => {
-    modal.style.display = 'none';
-  };
-  if (isEditing) {
-    document.getElementById('cancelBtn').onclick = (e) => {
-      e.preventDefault();
-      showStudentModal(data, false);
-    };
-    document.getElementById('studentEditForm').onsubmit = async function(e) {
-      e.preventDefault();
-      const formData = Object.fromEntries(new FormData(this).entries());
+  
+  document.getElementById('cancelBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    showStudentModal(data, false);
+  });
+  
+  document.getElementById('studentEditForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = Object.fromEntries(new FormData(this).entries());
+    
+    try {
       const updateRes = await fetch(`/student/${data.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
       });
-      if (!updateRes.ok) return alert("Failed to update.");
+      
+      if (!updateRes.ok) {
+        throw new Error("Failed to update student information");
+      }
+      
       const updated = await updateRes.json();
       showStudentModal(updated, false);
-      updateStudentCard(updated); // <-- Update dashboard on save
-    };
-  } else {
-    document.getElementById('editBtn').onclick = (e) => {
-      e.preventDefault();
-      showStudentModal(data, true);
-    };
-  }
+      updateStudentCard(updated); // Update dashboard on save
+    } catch (error) {
+      alert(error.message || "An error occurred while updating");
+    }
+  });
 }
 
 // Update student card in dashboard
