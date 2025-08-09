@@ -49,42 +49,65 @@
         <span>Logout</span>
       </a>
     </aside>
-    <main class="main-content">
-      <div class="reminders-header-row">
-        <div>
-          <h1 class="reminders-title">Reminders</h1>
-          <p class="reminders-subtitle">Stay on track, stay organized</p>
-        </div>
-        <a href="#" class="add-reminder-btn">+ Add New Reminder</a>
-      </div>
-      <div class="reminders-grid">
-        <% if (reminders && reminders.length) { %>
-          <% reminders.forEach(function(reminder) { %>
-            <div class="reminder-card">
-              <div class="reminder-card-header">
-                <span class="reminder-badge"><%= reminder.title %></span>
-                <div class="reminder-actions">
-                  <button class="card-action-btn" title="Edit"><span>✏️</span></button>
-                  <button class="card-action-btn" title="Delete"><span>🗑️</span></button>
-                  <button class="card-action-btn" title="Mark as Done"><span>✔️</span></button>
-                </div>
-              </div>
-              <div class="reminder-card-body">
-                <p class="reminder-desc"><strong>Description:</strong> <%= reminder.description %></p>
-                <p class="reminder-date">
-                  <strong>Remind At:</strong> <span>📅 <%= reminder.remind_at ? new Date(reminder.remind_at).toLocaleString() : '-' %></span>
-                </p>
-                <p class="reminder-date">
-                  <strong>Created At:</strong> <%= reminder.created_at ? new Date(reminder.created_at).toISOString().slice(0,10) : '-' %>
-                </p>
-              </div>
-            </div>
-          <% }); %>
-        <% } else { %>
-          <div class="reminders-empty">No reminders yet. Click <strong>+ Add New Reminder</strong> to create one!</div>
-        <% } %>
-      </div>
-    </main>
+<main class="main-content">
+  <div class="reminders-header-row">
+    <div>
+      <h1 class="reminders-title">Reminders</h1>
+      <p class="reminders-subtitle">Stay on track, stay organized</p>
+    </div>
+    <button class="add-reminder-btn" id="openAddReminderModal">+ Add New Reminder</button>
   </div>
+  <div class="reminders-grid" id="remindersGrid">
+  <% if (reminders && reminders.length) { %>
+    <% reminders.forEach(function(reminder) { %>
+      <div class="reminder-card" data-id="<%= reminder.id %>">
+        <div class="reminder-card-header">
+          <span class="reminder-badge"><%= reminder.title %></span>
+          <div class="reminder-actions">
+            <button class="card-action-btn" title="Edit"><span>✏️</span></button>
+            <button class="card-action-btn" title="Delete"><span>🗑️</span></button>
+            <button class="card-action-btn" title="Mark as Done"><span>✔️</span></button>
+          </div>
+        </div>
+        <div class="reminder-card-body">
+          <p class="reminder-desc"><strong>Description:</strong> <%= reminder.description %></p>
+          <p class="reminder-date"><strong>Remind At:</strong> <span>📅 <%= reminder.remind_at ? new Date(reminder.remind_at).toLocaleString() : '-' %></span></p>
+          <p class="reminder-date"><strong>Created At:</strong> <%= reminder.created_at ? new Date(reminder.created_at).toISOString().slice(0,10) : '-' %></p>
+        </div>
+      </div>
+    <% }); %>
+  <% } else { %>
+    <div class="reminders-empty">No reminders yet. Click <strong>+ Add New Reminder</strong> to create one!</div>
+  <% } %>
+</div>
+
+  <!-- Modal -->
+  <div id="addReminderModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Add New Reminder</h2>
+      <form id="addReminderForm" autocomplete="off">
+        <div class="input-group">
+          <label>Title</label>
+          <input type="text" name="title" required maxlength="70"/>
+        </div>
+        <div class="input-group">
+          <label>Description</label>
+          <textarea name="description" rows="3" maxlength="300"></textarea>
+        </div>
+        <div class="input-group">
+          <label>Remind At</label>
+          <input type="datetime-local" name="remind_at"/>
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="primary-btn">Save</button>
+          <button type="button" class="secondary-btn" id="closeAddReminderModal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="toast" style="display:none;"></div>
+</main>
+  </div>
+  <script src="/js/reminders.js"></script>
 </body>
 </html>

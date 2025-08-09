@@ -1,0 +1,321 @@
+:root {
+  --nav-bg: #192444;
+  --sidebar-bg: #fff;
+  --sidebar-link: #C6D6F0;
+  --sidebar-link-hover: #a8c0e0;
+  --sidebar-link-active: #192444;
+  --sidebar-link-active-text: #fff;
+  --reminder-dark: #192444;
+  --reminder-light: #C6D6F0;
+  --reminder-bg: #e7eefd;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background: #fff;
+  color: var(--reminder-dark);
+}
+.navbar {
+  background: var(--nav-bg);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 26px;
+  min-height: 64px;
+}
+.nav-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.app-name h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+.app-name p {
+  font-size: 0.9rem;
+  margin-top: -5px;
+  font-weight: 500;
+  color: #e7eefd;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.notification { position: relative; }
+.notification .icon { font-size: 24px; cursor: pointer; }
+.notif-count {
+  background: #e11d48;
+  color: #fff;
+  font-size: 11px;
+  border-radius: 50%;
+  padding: 2px 6px;
+  position: absolute;
+  top: -7px; right: -13px;
+}
+.admin-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.09);
+  padding: 6px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.container {
+  display: flex;
+  height: calc(100vh - 64px);
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  background: var(--sidebar-bg);
+  padding: 28px 0 0 0;
+  width: 245px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-right: 1.5px solid #e3e9f4;
+}
+.sidebar-link {
+  text-decoration: none;
+  background: var(--sidebar-link);
+  color: var(--reminder-dark);
+  padding: 16px 26px;
+  border-radius: 13px 13px 13px 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 1.08rem;
+  transition: 0.23s;
+  margin: 0 18px 0 18px;
+}
+.sidebar-link:hover {
+  background: var(--sidebar-link-hover);
+}
+.sidebar-link.active {
+  background: var(--sidebar-link-active);
+  color: var(--sidebar-link-active-text);
+}
+
+/* --- Main Content --- */
+.main-content {
+  flex: 1;
+  padding: 46px 48px 0 48px;
+  min-width: 0;
+  background: #fff;
+  overflow-y: auto;
+}
+.reminders-header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.reminders-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--reminder-dark);
+  margin-bottom: 4px;
+  letter-spacing: 1.8px;
+}
+.reminders-subtitle {
+  color: #444f6e;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+.add-reminder-btn {
+  background: var(--reminder-dark);
+  color: #fff;
+  font-size: 1.15rem;
+  border-radius: 13px;
+  padding: 13px 32px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.18s;
+  box-shadow: 0 2px 8px rgba(31,38,135,0.08);
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.add-reminder-btn:hover {
+  background: #324285;
+  color: #fff;
+}
+
+.reminders-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+.reminder-card {
+  background: var(--reminder-dark);
+  border-radius: 18px;
+  box-shadow: 0 3px 18px rgba(18,18,70,0.07);
+  width: 360px;
+  max-width: 95vw;
+  padding: 0 0 13px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-height: 160px;
+  position: relative;
+  transition: box-shadow .19s, transform .19s;
+}
+.reminder-card:hover {
+  box-shadow: 0 7px 28px rgba(31,38,135,0.11);
+  transform: translateY(-3px) scale(1.012);
+}
+
+/* Card Header */
+.reminder-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 18px 7px 18px;
+  gap: 7px;
+}
+.reminder-badge {
+  background: var(--reminder-light);
+  color: var(--reminder-dark);
+  font-weight: 700;
+  font-size: 1.13rem;
+  border-radius: 10px;
+  padding: 4px 16px;
+  margin-right: 8px;
+  white-space: nowrap;
+  box-shadow: 0 1px 5px rgba(80,90,130,0.05);
+  letter-spacing: 0.7px;
+}
+.reminder-actions {
+  display: flex;
+  gap: 9px;
+}
+.card-action-btn {
+  background: var(--reminder-light);
+  color: var(--reminder-dark);
+  border: none;
+  border-radius: 7px;
+  padding: 4px 7px;
+  font-size: 1.11rem;
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s, transform 0.13s;
+  outline: none;
+}
+.card-action-btn:hover {
+  background: #a8c0e0;
+  color: #192444;
+  transform: scale(1.07);
+}
+
+/* Card Body */
+.reminder-card-body {
+  background: #c6d6f0;
+  border-radius: 9px;
+  margin: 0 18px 0 18px;
+  padding: 14px 14px 9px 14px;
+  font-size: 1.09rem;
+  font-weight: 500;
+  color: #192444;
+  min-height: 65px;
+  box-shadow: 0 1px 8px rgba(80,90,130,0.03);
+}
+.reminder-desc {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.reminder-date {
+  font-size: 0.97rem;
+  margin-bottom: 1px;
+}
+.reminders-empty {
+  font-size: 1.23rem;
+  color: #aaa;
+  margin-top: 40px;
+  letter-spacing: 0.7px;
+  text-align: center;
+  width: 100%;
+}
+
+/* modal */
+/* Modal styles (reuse/extend from dashboard.css if you wish) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(25,36,68,0.23);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 14px;
+  padding: 36px 32px 24px 32px;
+  max-width: 380px;
+  width: 92vw;
+  box-shadow: 0 4px 18px rgba(44,62,80,0.14);
+  margin: 80px auto 0 auto;
+}
+.input-group { margin-bottom: 18px; }
+.input-group label { font-weight: 500; color: #192444; }
+.input-group input, .input-group textarea {
+  width: 100%; border-radius: 8px; border: 1.5px solid #C6D6F0; padding: 8px; font-size: 1rem;
+}
+.modal-actions {
+  display: flex; gap: 14px; margin-top: 12px;
+  justify-content: flex-end;
+}
+.primary-btn {
+  background: #192444; color: #fff; border-radius: 8px; border: none; padding: 9px 22px; font-weight: bold; cursor: pointer;
+}
+.secondary-btn {
+  background: #C6D6F0; color: #192444; border-radius: 8px; border: none; padding: 9px 22px; font-weight: bold; cursor: pointer;
+}
+#toast {
+  position: fixed; top: 24px; right: 36px; background: #192444; color: #fff; padding: 12px 24px; border-radius: 9px; z-index: 2000; font-weight: 600; box-shadow: 0 2px 10px rgba(31,38,135,0.18);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 900px) {
+  .main-content { padding: 26px 6vw 0 6vw; }
+  .sidebar { width: 52px; padding: 12px 0 0 0; }
+  .sidebar-link { font-size: 0.95rem; padding: 10px 10px; margin: 0 7px;}
+  .reminder-card { width: 98vw; max-width: 97vw; }
+}
+@media (max-width: 600px) {
+  .main-content { padding: 16px 3vw 0 3vw; }
+  .reminders-header-row { flex-direction: column; gap: 16px; align-items: flex-start; }
+  .reminders-title { font-size: 1.35rem; }
+  .reminder-card { min-width: 99vw; }
+  .sidebar { display: none; }
+}

@@ -21,7 +21,7 @@ export async function showRemindersPage(req, res) {
       full_name: req.session.full_name,
       role: req.session.role
     },
-    reminders
+    reminders // <-- must be array of reminders from DB
   });
 }
 

@@ -1,3 +1,4 @@
+// tutorRoutes.js
 import express from "express";
 import { requireAuth, requireTutor } from "../middleware/auth.js";
 import { showDashboard } from "../controllers/tutorController.js";
@@ -15,4 +16,4 @@ router.get("/add_student", requireAuth, requireTutor, (req, res) => {
 });
 router.post("/add_student", requireAuth, requireTutor, upload.single('id_picture'), addStudentController);
 
-export default router; 
+export default router;
