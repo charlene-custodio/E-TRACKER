@@ -48,3 +48,10 @@ app.use("/", studentRoutes);
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+// ...existing imports
+import reminderRoutes from "./routes/reminderRoutes.js";
+
+//
+app.use("/", reminderRoutes); // <-- add this
+app.use("/", studentRoutes);

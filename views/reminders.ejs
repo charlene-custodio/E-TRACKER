@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reminders | E-TRACKER</title>
+  <link rel="stylesheet" href="/css/reminders.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-title">
+      <img src="/images/logo.png" alt="Logo" class="logo"/>
+      <div class="app-name">
+        <h2>E-TRACKER</h2>
+        <p>Anecdotal Report & Student Record Tracker</p>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="notification">
+        <span class="icon">🔔</span>
+        <span class="notif-count">12</span>
+      </div>
+      <div class="admin-info">
+        <span><%= user.username || "User" %></span>
+        <span><%= user.role || "User" %></span>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <aside class="sidebar">
+      <a href="/dashboard" class="sidebar-link">
+        <span class="icon">◼◼</span>
+        <span>Dashboard</span>
+      </a>
+      <a href="/reminders" class="sidebar-link active">
+        <span class="icon">◼◼</span>
+        <span>Reminders</span>
+      </a>
+      <a href="/settings" class="sidebar-link">
+        <span class="icon">◼◼</span>
+        <span>Settings</span>
+      </a>
+      <a href="/archives" class="sidebar-link">
+        <span class="icon">◼◼</span>
+        <span>Archives</span>
+      </a>
+      <a href="/logout" class="sidebar-link">
+        <span class="icon">◼◼</span>
+        <span>Logout</span>
+      </a>
+    </aside>
+    <main class="main-content">
+      <div class="reminders-header-row">
+        <div>
+          <h1 class="reminders-title">Reminders</h1>
+          <p class="reminders-subtitle">Stay on track, stay organized</p>
+        </div>
+        <a href="#" class="add-reminder-btn">+ Add New Reminder</a>
+      </div>
+      <div class="reminders-grid">
+        <% if (reminders && reminders.length) { %>
+          <% reminders.forEach(function(reminder) { %>
+            <div class="reminder-card">
+              <div class="reminder-card-header">
+                <span class="reminder-badge"><%= reminder.title %></span>
+                <div class="reminder-actions">
+                  <button class="card-action-btn" title="Edit"><span>✏️</span></button>
+                  <button class="card-action-btn" title="Delete"><span>🗑️</span></button>
+                  <button class="card-action-btn" title="Mark as Done"><span>✔️</span></button>
+                </div>
+              </div>
+              <div class="reminder-card-body">
+                <p class="reminder-desc"><strong>Description:</strong> <%= reminder.description %></p>
+                <p class="reminder-date">
+                  <strong>Remind At:</strong> <span>📅 <%= reminder.remind_at ? new Date(reminder.remind_at).toLocaleString() : '-' %></span>
+                </p>
+                <p class="reminder-date">
+                  <strong>Created At:</strong> <%= reminder.created_at ? new Date(reminder.created_at).toISOString().slice(0,10) : '-' %>
+                </p>
+              </div>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <div class="reminders-empty">No reminders yet. Click <strong>+ Add New Reminder</strong> to create one!</div>
+        <% } %>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
