@@ -295,9 +295,19 @@ body {
   position: fixed; top: 24px; right: 36px; background: #192444; color: #fff; padding: 12px 24px; border-radius: 9px; z-index: 2000; font-weight: 600; box-shadow: 0 2px 10px rgba(31,38,135,0.18);
 }
 
-
-
-
+.reminder-card.reminder-done {
+  opacity: 0.7;
+  background: #e9f9ef;
+  border-left: 5px solid #39bf7a;
+  filter: grayscale(0.2);
+}
+.done-badge {
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: #d3fae6;
+  font-size: 1em;
+  margin-left: 8px;
+}
 
 
 
