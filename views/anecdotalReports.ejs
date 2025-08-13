@@ -7,23 +7,30 @@
   <link rel="stylesheet" href="/css/anecdotal-view.css" />
 </head>
 <body>
-  <main>
+  <header class="navbar">
+    <div class="nav-title">
+      <img src="/images/logo.png" alt="Logo" class="logo"/>
+      <div class="app-name">
+        <h2>E-TRACKER</h2>
+        <p>Anecdotal Report & Student Record Tracker</p>
+      </div>
+    </div>
+  </header>
+  <main class="anec-main">
     <% if (reports && reports.length > 0) { %>
-      <div class="student-profile">
-        <h2><%= reports[0].student_name %></h2>
-        <p>Grade Level: <%= reports[0].grade_level %></p>
-        <p>School: <%= reports[0].school_name %></p>
+      <div class="student-profile-banner">
+        <img src="/uploads/<%= student.id_picture %>" alt="Student Photo" class="profile-img">
+        <div class="profile-info">
+          <span class="profile-name"><%= reports[0].student_name %></span>
+          <span class="profile-meta">Grade level: <%= reports[0].grade_level %></span>
+          <span class="profile-meta">School: <%= reports[0].school_name %></span>
+        </div>
       </div>
-      <div class="text-right" style="margin-bottom: 1rem;">
-        <button id="download-anecdotal-btn" class="px-4 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm">Download Anecdotal Report</button>
-      </div>
-      <div id="anecdotalReportsList" class="anecdotal-reports-list">
-        <% reports.forEach(function(report) { %>
-          <div class="report-card" data-report-id="<%= report.id %>" data-student-id="<%= report.student_id %>">
-            <!-- VIEW MODE -->
+      <div class="anec-report-row">
+        <% reports.forEach(function(report, idx) { %>
+          <div class="report-card<%= idx === 1 ? ' highlight' : '' %>">
             <div class="view-mode">
-              <h3>
-                Report Date:
+              <h3>Report Date:<br>
                 <%= new Date(report.report_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
               </h3>
               <p class="hours-row"><strong>Recorded Hours:</strong> <span><%= report.hours %></span></p>
@@ -31,10 +38,6 @@
               <p><strong>Intervention:</strong> <span class="field-value" data-field="intervention"><%= report.intervention %></span></p>
               <p><strong>Result:</strong> <span class="field-value" data-field="result"><%= report.result %></span></p>
               <p><strong>Created By:</strong> <%= report.created_by_name %></p>
-              <p>
-                <strong>Created At:</strong>
-                <%= new Date(report.created_at).toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %>
-              </p>
               <div class="sessions-list">
                 <h4>Sessions:</h4>
                 <ul class="session-list-view">
@@ -100,16 +103,25 @@
             </form>
           </div>
         <% }); %>
+        <% if (reports.length === 1) { %>
+          <div class="report-card empty"></div>
+        <% } %>
+      </div>
+      <div class="action-row">
+        <button id="download-anecdotal-btn" class="action-btn">Download Anecdotal Report</button>
+        <a href="/dashboard" class="action-btn back-btn">Back to Students</a>
       </div>
     <% } else { %>
-      <div class="student-profile">
+      <div class="student-profile-banner">
         <em>No anecdotal reports found for this student.</em>
+      </div>
+      <div class="action-row">
+        <a href="/dashboard" class="action-btn back-btn">Back to Students</a>
       </div>
     <% } %>
   </main>
-  <script src="/js/anecdotalReportActions.js"></script>
+<script src="/js/anecdotalReportActions.js"></script>
   <script>
-    // Toggle between view and edit modes, and consistent session input logic
     document.addEventListener('DOMContentLoaded', function() {
       // Edit button
       document.querySelectorAll('.edit-report-btn').forEach(function(btn) {
@@ -176,7 +188,6 @@
             result: formData.get('result'),
             sessions: []
           };
-          // Gather sessions
           form.querySelectorAll('.session-edit-row').forEach((li, idx) => {
             payload.sessions.push({
               time_in: li.querySelector(`input[name="session_time_in_${idx}"]`).value,
@@ -212,8 +223,6 @@
 
       // Download Anecdotal Button
       document.getElementById('download-anecdotal-btn').addEventListener('click', function() {
-        // Compose a downloadable HTML for this student
-        // You should update the path below for your downloadable EJS route if needed!
         window.open('/students/<%= reports[0] ? reports[0].student_id : "" %>/anecdotal-download', '_blank');
       });
     });

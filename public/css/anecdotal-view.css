@@ -1,119 +1,273 @@
-.student-profile {
-  background: linear-gradient(90deg, #31416a 0%, #4e6cb9 100%);
-  border-radius: 18px;
-  color: #fff;
-  padding: 32px 28px 22px 28px;
-  margin-bottom: 36px;
+*{
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(120deg, #192444 0%, #48628d 100%);
+  font-family: 'Inter', Arial, sans-serif;
+  min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+  background-color: #192444;
+  color: #ffffff;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
-  box-shadow: 0 3px 16px rgba(49,65,106,0.18);
-  max-width: 420px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 24px;
+  height: 65px;
+  box-shadow: 0 2px 12px rgba(25,36,68,0.13);
 }
-
-.student-profile h2 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
-
-.student-profile p {
-  font-size: 1.1rem;
-  margin: 2px 0;
-  letter-spacing: .03em;
-  opacity: .92;
-}
-
-.anecdotal-reports-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  gap: 28px;
-}
-
-.report-card {
-  background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 2px 12px rgba(44,62,80,0.12);
-  padding: 28px 22px 22px 22px;
-  position: relative;
-  transition: box-shadow 0.18s;
-  border: 1.5px solid #e9eefa;
+.nav-title {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 12px;
 }
-
-.report-card:hover {
-  box-shadow: 0 6px 22px rgba(44,62,80,0.16);
-  border-color: #b8caf6;
+.logo {
+  height: 44px;
+  width: 44px;
+  border-radius: 50%;
+}
+.app-name h2 {
+  font-size: 1.14rem;
+  margin-bottom: 2px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.app-name p {
+  font-size: 0.83rem;
+  color: #c6d6f0;
+  margin-top: -5px;
 }
 
+/* MAIN CONTAINER */
+.anec-main {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.student-profile-banner {
+  margin-top: 38px;
+  margin-bottom: 42px;
+  background: linear-gradient(120deg, #dde6f8 60%, #e6ebfa 100%);
+  border-radius: 38px;
+  box-shadow: 0 6px 32px rgba(49,65,106,0.17);
+  padding: 22px 36px 22px 28px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 34px;
+  min-width: 440px;
+  max-width: 530px;
+}
+.profile-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #192444;
+  background: #fff;
+  box-shadow: 0 2px 14px rgba(44,62,80,0.14);
+}
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 10px;
+}
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #192444;
+  margin-bottom: 5px;
+  font-family: 'Inter', Arial, sans-serif;
+}
+.profile-meta {
+  color: #1c2846;
+  font-size: 1.03rem;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+/* REPORT ROW */
+.anec-report-row {
+  width: 100%;
+  max-width: 1020px;
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+  justify-content: center;
+  margin-bottom: 40px;
+  min-height: 320px;
+}
+.report-card {
+  background: #d8e3fa;
+  border-radius: 14px;
+  box-shadow: 0 3px 16px rgba(44,62,80,0.11);
+  flex: 1;
+  min-width: 320px;
+  min-height: 280px;
+  max-width: 400px;
+  padding: 32px 24px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 1.03rem;
+  color: #192444;
+  border: 2.5px solid transparent;
+  position: relative;
+  transition: border 0.15s, box-shadow 0.15s;
+}
+.report-card.highlight {
+  border: 2.5px solid #3F5AAA;
+}
+.report-card.empty {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
 .report-card h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #31416a;
+  font-size: 1.12rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #23335a;
+  letter-spacing: 0.5px;
 }
-
 .report-card p {
-  margin: 3px 0;
+  margin: 4px 0 2px 0;
   font-size: 1rem;
-  color: #294069;
-  font-weight: 400;
+  color: #23335a;
 }
-
 .sessions-list {
-  background: #f6fafe;
+  background: #e6edfa;
   border-radius: 12px;
-  padding: 14px 12px 7px 12px;
-  margin-top: 6px;
-  box-shadow: 0 1px 6px rgba(44,62,80,0.09);
+  padding: 12px 10px 7px 10px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  box-shadow: 0 1px 6px rgba(44,62,80,0.07);
 }
-
 .sessions-list h4 {
-  font-size: 1.08rem;
+  font-size: 1.01rem;
   font-weight: 600;
   color: #4160a0;
   margin-bottom: 5px;
 }
-
 .sessions-list ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 .sessions-list li {
   font-size: 0.98rem;
   color: #2e4370;
   display: flex;
-  gap: 24px;
+  gap: 16px;
   margin-bottom: 4px;
 }
-
 .sessions-list strong {
   color: #31416a;
   font-weight: 500;
   margin-right: 5px;
 }
-
-
 .report-actions {
-  margin-top: 12px;
+  margin-top: 14px;
   display: flex;
   gap: 12px;
 }
-
 .report-actions button {
-  background: #f3f7ff;
-  border: 1px solid #c4d2eb;
+  background: #c6d6f0;
+  border: 1.5px solid #3F5AAA;
   color: #294069;
-  border-radius: 6px;
-  padding: 6px 16px;
+  border-radius: 7px;
+  padding: 7px 18px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
+  font-weight: 600;
+  transition: background 0.18s;
 }
 .report-actions button:hover {
   background: #e3ecfd;
+}
+
+/* ACTION ROW BOTTOM */
+.action-row {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 16px;
+}
+.action-btn {
+  background: #dde6f8;
+  color: #192444;
+  border: none;
+  border-radius: 13px;
+  padding: 14px 38px;
+  font-size: 1.17rem;
+  font-weight: 700;
+  box-shadow: 0 2px 14px rgba(49,65,106,0.08);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  margin-bottom: 12px;
+  text-decoration: none;
+  text-align: center;
+}
+.action-btn:hover, .action-btn:focus {
+  background: #3F5AAA;
+  color: #fff;
+}
+.back-btn {
+  background: #23335a;
+  color: #ffff;
+}
+.back-btn:hover, .back-btn:focus {
+  background: #3F5AAA;
+  color: #fff;
+}
+
+@media (max-width: 1100px) {
+  .anec-report-row {
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+  .report-card, .report-card.empty {
+    max-width: 96vw;
+    min-width: 0;
+    width: 100%;
+  }
+}
+@media (max-width: 700px) {
+  .student-profile-banner {
+    min-width: unset;
+    max-width: 99vw;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 3vw 10px 3vw;
+  }
+  .anec-main {
+    padding: 6px 0 0 0;
+  }
+  .profile-img {
+    width: 65px; height: 65px;
+  }
+  .anec-report-row {
+    max-width: 99vw;
+    padding: 0 2vw;
+  }
+  .report-card, .report-card.empty {
+    padding: 12px 3vw 12px 3vw;
+  }
+  .action-row {
+    flex-direction: column;
+    gap: 14px;
+  }
 }

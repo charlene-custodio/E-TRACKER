@@ -54,7 +54,7 @@ export async function getSessionsByReportId(reportId) {
 
 export async function getStudentById(studentId) {
   const { rows } = await pool.query(
-    `SELECT name, grade_level, school_name FROM students WHERE id = $1`,
+    `SELECT id, id_picture, name, grade_level, school_name FROM students WHERE id = $1`,
     [studentId]
   );
   return rows[0] || null;

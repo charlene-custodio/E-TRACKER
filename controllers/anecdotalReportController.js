@@ -57,9 +57,9 @@ export async function listAnecdotalReportsPage(req, res) {
     report.grade_level = student?.grade_level || "";
     report.school_name = student?.school_name || "";
   }
-  res.render("anecdotalReports", { reports });
+  // Pass both student and reports
+  res.render("anecdotalReports", { student, reports });
 }
-
 // Create new report
 export async function submitAnecdotalReport(req, res) {
   const student_id = Number(req.params.studentId);
