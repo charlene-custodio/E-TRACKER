@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anecdotal Reports for <%= reports && reports.length > 0 ? reports[0].student_name : "Student" %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/anecdotal-view.css" />
+</head>
+<body>
+  <main>
+    <% if (reports && reports.length > 0) { %>
+      <div class="student-profile">
+        <h2><%= reports[0].student_name %></h2>
+        <p>Grade Level: <%= reports[0].grade_level %></p>
+        <p>School: <%= reports[0].school_name %></p>
+      </div>
+      <div class="text-right" style="margin-bottom: 1rem;">
+        <button id="download-anecdotal-btn" class="px-4 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm">Download Anecdotal Report</button>
+      </div>
+      <div id="anecdotalReportsList" class="anecdotal-reports-list">
+        <% reports.forEach(function(report) { %>
+          <div class="report-card" data-report-id="<%= report.id %>" data-student-id="<%= report.student_id %>">
+            <!-- VIEW MODE -->
+            <div class="view-mode">
+              <h3>
+                Report Date:
+                <%= new Date(report.report_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+              </h3>
+              <p class="hours-row"><strong>Recorded Hours:</strong> <span><%= report.hours %></span></p>
+              <p><strong>Learner Difficulties:</strong> <span class="field-value" data-field="learner_difficulties"><%= report.learner_difficulties %></span></p>
+              <p><strong>Intervention:</strong> <span class="field-value" data-field="intervention"><%= report.intervention %></span></p>
+              <p><strong>Result:</strong> <span class="field-value" data-field="result"><%= report.result %></span></p>
+              <p><strong>Created By:</strong> <%= report.created_by_name %></p>
+              <p>
+                <strong>Created At:</strong>
+                <%= new Date(report.created_at).toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %>
+              </p>
+              <div class="sessions-list">
+                <h4>Sessions:</h4>
+                <ul class="session-list-view">
+                  <% if (report.sessions && report.sessions.length > 0) { %>
+                    <% report.sessions.forEach(function(session) { %>
+                      <li>
+                        <strong>Time In:</strong> <span class="session-time-in"><%= session.time_in.slice(0,5) %></span>
+                        <strong>Time Out:</strong> <span class="session-time-out"><%= session.time_out.slice(0,5) %></span>
+                      </li>
+                    <% }) %>
+                  <% } else { %>
+                    <li><em>No session records for this report.</em></li>
+                  <% } %>
+                </ul>
+              </div>
+              <div class="report-actions">
+                <button class="edit-report-btn" data-id="<%= report.id %>">✏️ Edit</button>
+                <button class="delete-report-btn" data-id="<%= report.id %>">🗑️ Delete</button>
+              </div>
+            </div>
+            <!-- EDIT MODE (hidden by default) -->
+            <form class="edit-mode-form" style="display:none;" autocomplete="off">
+              <h3>Edit Anecdotal Report & Sessions</h3>
+              <div class="input-group">
+                <label>Report Date</label>
+                <input type="date" name="report_date" value="<%= (new Date(report.report_date)).toISOString().slice(0,10) %>" required />
+              </div>
+              <div class="input-group">
+                <label>Learner Difficulties</label>
+                <textarea name="learner_difficulties" required><%= report.learner_difficulties %></textarea>
+              </div>
+              <div class="input-group">
+                <label>Intervention</label>
+                <textarea name="intervention" required><%= report.intervention %></textarea>
+              </div>
+              <div class="input-group">
+                <label>Result</label>
+                <textarea name="result" required><%= report.result %></textarea>
+              </div>
+              <div class="sessions-edit-container">
+                <h4>Anecdotal Sessions</h4>
+                <ul class="sessions-edit-list">
+                  <% if (report.sessions && report.sessions.length > 0) { %>
+                    <% report.sessions.forEach(function(session, idx) { %>
+                      <li class="session-edit-row">
+                        <label>Time In
+                          <input type="time" name="session_time_in_<%= idx %>" value="<%= session.time_in.slice(0,5) %>" required />
+                        </label>
+                        <label>Time Out
+                          <input type="time" name="session_time_out_<%= idx %>" value="<%= session.time_out.slice(0,5) %>" required />
+                        </label>
+                        <button type="button" class="remove-session-btn">✖</button>
+                      </li>
+                    <% }) %>
+                  <% } %>
+                </ul>
+                <button type="button" class="add-session-btn">+ Add Session</button>
+              </div>
+              <div class="modal-actions">
+                <button type="submit" class="primary-btn save-report-btn" data-id="<%= report.id %>">💾 Save</button>
+                <button type="button" class="secondary-btn cancel-edit-btn">Cancel</button>
+              </div>
+            </form>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="student-profile">
+        <em>No anecdotal reports found for this student.</em>
+      </div>
+    <% } %>
+  </main>
+  <script src="/js/anecdotalReportActions.js"></script>
+  <script>
+    // Toggle between view and edit modes, and consistent session input logic
+    document.addEventListener('DOMContentLoaded', function() {
+      // Edit button
+      document.querySelectorAll('.edit-report-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var card = btn.closest('.report-card');
+          card.querySelector('.view-mode').style.display = 'none';
+          card.querySelector('.edit-mode-form').style.display = '';
+        });
+      });
+
+      // Cancel button (edit mode)
+      document.querySelectorAll('.cancel-edit-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var card = btn.closest('.report-card');
+          card.querySelector('.edit-mode-form').style.display = 'none';
+          card.querySelector('.view-mode').style.display = '';
+        });
+      });
+
+      // Add session (edit mode)
+      document.querySelectorAll('.add-session-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var ul = btn.closest('.sessions-edit-container').querySelector('.sessions-edit-list');
+          var idx = ul.children.length;
+          var li = document.createElement('li');
+          li.className = 'session-edit-row';
+          li.innerHTML = `
+            <label>Time In
+              <input type="time" name="session_time_in_${idx}" required />
+            </label>
+            <label>Time Out
+              <input type="time" name="session_time_out_${idx}" required />
+            </label>
+            <button type="button" class="remove-session-btn">✖</button>
+          `;
+          ul.appendChild(li);
+          li.querySelector('.remove-session-btn').onclick = () => li.remove();
+        });
+      });
+
+      // Remove session (edit mode, for initial rows)
+      document.querySelectorAll('.sessions-edit-list').forEach(function(ul) {
+        ul.querySelectorAll('.remove-session-btn').forEach(function(btn) {
+          btn.onclick = function() {
+            btn.closest('.session-edit-row').remove();
+          }
+        });
+      });
+
+      // Save (submit) edit form
+      document.querySelectorAll('.edit-mode-form').forEach(function(form) {
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          var card = form.closest('.report-card');
+          var reportId = card.dataset.reportId;
+          var studentId = card.dataset.studentId;
+
+          // Gather form data
+          var formData = new FormData(form);
+          var payload = {
+            report_date: formData.get('report_date'),
+            learner_difficulties: formData.get('learner_difficulties'),
+            intervention: formData.get('intervention'),
+            result: formData.get('result'),
+            sessions: []
+          };
+          // Gather sessions
+          form.querySelectorAll('.session-edit-row').forEach((li, idx) => {
+            payload.sessions.push({
+              time_in: li.querySelector(`input[name="session_time_in_${idx}"]`).value,
+              time_out: li.querySelector(`input[name="session_time_out_${idx}"]`).value
+            });
+          });
+
+          // Send to backend
+          const res = await fetch(`/api/students/${studentId}/anecdotal-reports/${reportId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (res.ok) location.reload();
+          else alert('Failed to save');
+        });
+      });
+
+      // Delete button (view mode)
+      document.querySelectorAll('.delete-report-btn').forEach(function(btn) {
+        btn.addEventListener('click', async function() {
+          if (!confirm("Delete this report?")) return;
+          var card = btn.closest('.report-card');
+          var reportId = card.dataset.reportId;
+          var studentId = card.dataset.studentId;
+          const res = await fetch(`/api/students/${studentId}/anecdotal-reports/${reportId}`, {
+            method: 'DELETE'
+          });
+          if (res.ok) location.reload();
+          else alert('Failed to delete.');
+        });
+      });
+
+      // Download Anecdotal Button
+      document.getElementById('download-anecdotal-btn').addEventListener('click', function() {
+        // Compose a downloadable HTML for this student
+        // You should update the path below for your downloadable EJS route if needed!
+        window.open('/students/<%= reports[0] ? reports[0].student_id : "" %>/anecdotal-download', '_blank');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -8,7 +8,7 @@ import authRoutes from "./routes/authRoutes.js";
 import testDbRoutes from './routes/testDb.js';
 import adminRoutes from "./routes/adminRoutes.js";
 import tutorRoutes from "./routes/tutorRoutes.js";
-
+import anecdotalReportRoutes from "./routes/anecdotalReportRoutes.js"
 // Load environment variables
 dotenv.config();
 
@@ -55,3 +55,6 @@ import reminderRoutes from "./routes/reminderRoutes.js";
 //
 app.use("/", reminderRoutes); // <-- add this
 app.use("/", studentRoutes);
+
+
+app.use("/", anecdotalReportRoutes); // <-- Mount the anecdotal report routes

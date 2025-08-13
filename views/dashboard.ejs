@@ -70,21 +70,62 @@
 
     <!-- Students Card Grid -->
 <div class="students-grid">
- <% students.forEach(function(student) { %>
-  <div class="student-card">
-    <img src="/uploads/<%= student.id_picture %>" alt="Student Avatar" class="student-avatar" />
-    <div class="student-info">
-      <h3><%= student.name %></h3>
-      <p>Grade <%= student.grade_level %> Student</p>
-      <p><%= student.sex %></p>
+  <% students.forEach(function(student) { %>
+    <div class="student-card">
+      <img src="/uploads/<%= student.id_picture %>" alt="Student Avatar" class="student-avatar" />
+      <div class="student-info">
+        <h3><%= student.name %></h3>
+        <p>Grade <%= student.grade_level %> Student</p>
+        <p><%= student.sex %></p>
+      </div>
+      <div class="card-actions">
+        <a href="#" class="btn-icon view-student-btn" data-id="<%= student.id %>" title="View Student">👁️</a>
+        <a href="/students/<%= student.id %>/anecdotal-reports" class="btn-icon" title="View Anecdotal Reports">🔎</a>
+        <!-- Add Anecdotal Report button for each student -->
+            <button class="add-anecdotal-btn" 
+              data-student-id="<%= student.id %>">
+            + Add Anecdotal Report
+      </button>
+      </div>
     </div>
-    <div class="card-actions">
-      <a href="#" class="btn-icon view-student-btn" data-id="<%= student.id %>" title="View Student">👁️</a>
-      <a href="anecdotal-report.html?student_id=<%= student.id %>" class="btn-icon" title="View Report">🔎</a>
-    </div>
+  <% }); %>
+</div>
+
+<!-- Modal (at end of body, NOT inside students grid) -->
+<div id="anecdotalReportModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h2>Add Anecdotal Report & Sessions</h2>
+    <form id="anecdotalReportForm" autocomplete="off">
+      <div class="input-group">
+        <label>Report Date</label>
+        <input type="date" name="report_date" required />
+      </div>
+      <div class="input-group">
+        <label>Learner Difficulties</label>
+        <textarea name="learner_difficulties" required></textarea>
+      </div>
+      <div class="input-group">
+        <label>Intervention</label>
+        <textarea name="intervention" required></textarea>
+      </div>
+      <div class="input-group">
+        <label>Result</label>
+        <textarea name="result" required></textarea>
+      </div>
+      <hr />
+      <div id="sessionsContainer">
+        <h3>Anecdotal Sessions</h3>
+        <!-- Session entries will be appended here -->
+      </div>
+      <button type="button" id="addSessionBtn" class="secondary-btn">+ Add Session</button>
+      <div class="modal-actions">
+        <button type="submit" class="primary-btn">Submit Report & Sessions</button>
+        <button type="button" class="secondary-btn" id="closeAnecdotalReportModal">Cancel</button>
+      </div>
+    </form>
   </div>
-<% }); %>
-</div>   
+</div>
+
     </div>  
   </div>
 </main>
@@ -96,10 +137,11 @@
     <button type="submit">Logout</button>
   </form>
 <div id="viewStudentModal" class="modal" style="display:none;">
-  <div class="modal-content"
+  <div class="modal-content">
   </div>
 </div>
 
+<script src="/js/anecdotalReport.js"></script>
 <script src="/js/viewStudent.js"></script>
 <script >
 document.addEventListener('DOMContentLoaded', function() {
