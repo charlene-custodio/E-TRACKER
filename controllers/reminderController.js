@@ -48,14 +48,21 @@ export async function updateReminderApi(req, res) {
   const id = Number(req.params.id);
   if (!id) return res.status(400).json({ error: "Invalid id." });
 
-  const payload = {
-    title: req.body.title,
-    description: req.body.description,
-    remind_at: toDateOrNull(req.body.remind_at)
-  };
-  const updated = await updateReminder(id, req.session.userId, payload);
-  if (!updated) return res.status(404).json({ error: "Not found." });
-  res.json(updated);
+  // Only add fields that are present in the request
+  const payload = {};
+  ["title", "description", "remind_at", "is_done"].forEach((field) => {
+    if (typeof req.body[field] !== "undefined") payload[field] = req.body[field];
+  });
+
+  try {
+    const updated = await updateReminder(id, req.session.userId, payload);
+    if (!updated) return res.status(404).json({ error: "Not found." });
+    res.json(updated);
+  } catch (err) {
+    // Log the error for debugging
+    console.error("Update Reminder Error:", err);
+    res.status(500).json({ error: "Internal server error." });
+  }
 }
 
 export async function deleteReminderApi(req, res) {

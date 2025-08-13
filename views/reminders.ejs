@@ -60,11 +60,14 @@
   <div class="reminders-grid" id="remindersGrid">
   <% if (reminders && reminders.length) { %>
     <% reminders.forEach(function(reminder) { %>
-      <div class="reminder-card" data-id="<%= reminder.id %>">
+      <div class="reminder-card<%= reminder.is_done ? ' reminder-done' : '' %>" data-id="<%= reminder.id %>" data-is-done="<%= reminder.is_done %>">
         <div class="reminder-card-header">
           <span class="reminder-badge"><%= reminder.title %></span>
+          <% if (reminder.is_done) { %>
+            <span class="done-badge">Done</span>
+          <% } %>
           <div class="reminder-actions">
-           <button class="card-action-btn" title="Edit"><span>✏️</span></button>
+            <button class="card-action-btn" title="Edit"><span>✏️</span></button>
             <button class="card-action-btn" title="Delete"><span>🗑️</span></button>
             <button class="card-action-btn" title="Mark as Done"><span>✔️</span></button>
           </div>

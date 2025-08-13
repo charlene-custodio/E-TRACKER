@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (reminder) {
       form.title.value = reminder.title || '';
       form.description.value = reminder.description || '';
-      // Handle remind_at as datetime-local value
       form.remind_at.value = reminder.remind_at ? toDatetimeLocal(reminder.remind_at) : '';
       editingId = reminder.id;
       form.querySelector('.primary-btn').textContent = "Update";
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => { toast.style.display = 'none'; }, 2000);
   }
   function toDatetimeLocal(date) {
-    // Accepts ISO/Date string or Date object, returns YYYY-MM-DDTHH:MM
     const d = new Date(date);
     d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
     return d.toISOString().slice(0,16);
@@ -57,17 +55,14 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!resp.ok) throw new Error('Failed to save reminder');
       const reminder = await resp.json();
 
-      // Remove empty state if present
       const emptyEl = document.querySelector('.reminders-empty');
       if (emptyEl) emptyEl.remove();
 
       if (editingId) {
-        // Update card in DOM
         const card = grid.querySelector(`.reminder-card[data-id="${editingId}"]`);
         if (card) card.replaceWith(createReminderCard(reminder));
         showToast('Reminder updated!');
       } else {
-        // Add card to grid (prepend)
         grid.prepend(createReminderCard(reminder));
         showToast('Reminder added!');
       }
@@ -77,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  // Single event delegation for all reminder card actions
   grid.onclick = async function(e) {
     const btn = e.target.closest('.card-action-btn');
     if (!btn) return;
@@ -103,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // EDIT
     if (btn.title === 'Edit') {
-      // Optionally, fetch latest from API, here we parse from DOM for brevity
       const title = card.querySelector('.reminder-badge').textContent;
       const desc = card.querySelector('.reminder-desc').innerText.replace('Description: ', '');
       const remindAt = card.querySelector('.reminder-date span').textContent.replace('📅 ','');
@@ -124,7 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
         body: JSON.stringify({ is_done: true })
       });
       if (resp.ok) {
-        card.classList.add('reminder-done');
+        // Get the updated reminder from backend for accuracy
+        const updatedReminder = await resp.json();
+        card.replaceWith(createReminderCard(updatedReminder));
         showToast('Marked as done!');
       } else {
         showToast('Failed to mark as done.');
@@ -142,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
     div.innerHTML = `
       <div class="reminder-card-header">
         <span class="reminder-badge">${reminder.title}</span>
+        ${reminder.is_done ? `<span class="done-badge">Done</span>` : ""}
         <div class="reminder-actions">
           <button class="card-action-btn" title="Edit"><span>✏️</span></button>
           <button class="card-action-btn" title="Delete"><span>🗑️</span></button>
@@ -156,5 +152,16 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     return div;
   }
-});
 
+  // On initial page load, update cards for done status (SSR support)
+  Array.from(grid.querySelectorAll('.reminder-card')).forEach(card => {
+    if (card.dataset.isDone === "true") {
+      card.classList.add('reminder-done');
+      // Optionally add done badge if rendered by SSR
+      const header = card.querySelector('.reminder-card-header');
+      if (header && !header.querySelector('.done-badge')) {
+        header.insertAdjacentHTML('afterbegin', `<span class="done-badge">Done</span>`);
+      }
+    }
+  });
+});
