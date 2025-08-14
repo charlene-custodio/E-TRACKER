@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       const card = form.closest('.report-card');
-      const reportId = card.dataset.reportId;
-      const studentId = card.dataset.studentId;
+      const reportId = card.getAttribute('data-report-id');
+      const studentId = card.getAttribute('data-student-id');
 
       // Gather form data
       const formData = new FormData(form);
