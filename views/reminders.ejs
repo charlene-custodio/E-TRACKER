@@ -71,15 +71,12 @@
     </div>
     <button class="add-reminder-btn" id="openAddReminderModal">+ Add New Reminder</button>
   </div>
-  <div class="reminders-grid" id="remindersGrid">
+ <div class="reminders-grid" id="remindersGrid">
   <% if (reminders && reminders.length) { %>
     <% reminders.forEach(function(reminder) { %>
       <div class="reminder-card<%= reminder.is_done ? ' reminder-done' : '' %>" data-id="<%= reminder.id %>" data-is-done="<%= reminder.is_done %>">
         <div class="reminder-card-header">
           <span class="reminder-badge"><%= reminder.title %></span>
-          <% if (reminder.is_done) { %>
-            <span class="done-badge">Done</span>
-          <% } %>
           <div class="reminder-actions">
             <button class="card-action-btn" title="Edit"><span>✏️</span></button>
             <button class="card-action-btn" title="Delete"><span>🗑️</span></button>
@@ -90,6 +87,9 @@
           <p class="reminder-desc"><strong>Description:</strong> <%= reminder.description %></p>
           <p class="reminder-date"><strong>Remind At:</strong> <span>📅 <%= reminder.remind_at ? new Date(reminder.remind_at).toLocaleString() : '-' %></span></p>
           <p class="reminder-date"><strong>Created At:</strong> <%= reminder.created_at ? new Date(reminder.created_at).toISOString().slice(0,10) : '-' %></p>
+          <% if (reminder.is_done) { %>
+            <div class="done-badge">Done</div>
+          <% } %>
         </div>
       </div>
     <% }); %>
@@ -97,7 +97,6 @@
     <div class="reminders-empty">No reminders yet. Click <strong>+ Add New Reminder</strong> to create one!</div>
   <% } %>
 </div>
-
   <!-- Modal -->
   <div id="addReminderModal" class="modal" style="display:none;">
     <div class="modal-content">

@@ -128,40 +128,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  // DRY card creation
-  function createReminderCard(reminder) {
-    const div = document.createElement('div');
-    div.className = 'reminder-card';
-    div.dataset.id = reminder.id;
-    if (reminder.is_done) div.classList.add('reminder-done');
-    div.innerHTML = `
-      <div class="reminder-card-header">
-        <span class="reminder-badge">${reminder.title}</span>
-        ${reminder.is_done ? `<span class="done-badge">Done</span>` : ""}
-        <div class="reminder-actions">
-          <button class="card-action-btn" title="Edit"><span>✏️</span></button>
-          <button class="card-action-btn" title="Delete"><span>🗑️</span></button>
-          <button class="card-action-btn" title="Mark as Done"><span>✔️</span></button>
-        </div>
+function createReminderCard(reminder) {
+  const div = document.createElement('div');
+  div.className = 'reminder-card';
+  div.dataset.id = reminder.id;
+  if (reminder.is_done) div.classList.add('reminder-done');
+  div.innerHTML = `
+    <div class="reminder-card-header">
+      <span class="reminder-badge">${reminder.title}</span>
+      <div class="reminder-actions">
+        <button class="card-action-btn" title="Edit"><span>✏️</span></button>
+        <button class="card-action-btn" title="Delete"><span>🗑️</span></button>
+        <button class="card-action-btn" title="Mark as Done"><span>✔️</span></button>
       </div>
-      <div class="reminder-card-body">
-        <p class="reminder-desc"><strong>Description:</strong> ${reminder.description || ''}</p>
-        <p class="reminder-date"><strong>Remind At:</strong> <span>📅 ${(reminder.remind_at ? new Date(reminder.remind_at).toLocaleString() : '-')}</span></p>
-        <p class="reminder-date"><strong>Created At:</strong> ${reminder.created_at ? new Date(reminder.created_at).toISOString().slice(0,10) : '-'}</p>
-      </div>
-    `;
-    return div;
-  }
+    </div>
+    <div class="reminder-card-body">
+      <p class="reminder-desc"><strong>Description:</strong> ${reminder.description || ''}</p>
+      <p class="reminder-date"><strong>Remind At:</strong> <span>📅 ${(reminder.remind_at ? new Date(reminder.remind_at).toLocaleString() : '-')}</span></p>
+      <p class="reminder-date"><strong>Created At:</strong> ${reminder.created_at ? new Date(reminder.created_at).toISOString().slice(0,10) : '-'}</p>
+      ${reminder.is_done ? `<div class="done-badge">Done</div>` : ""}
+    </div>
+  `;
+  return div;
+}
 
   // On initial page load, update cards for done status (SSR support)
   Array.from(grid.querySelectorAll('.reminder-card')).forEach(card => {
     if (card.dataset.isDone === "true") {
       card.classList.add('reminder-done');
       // Optionally add done badge if rendered by SSR
-      const header = card.querySelector('.reminder-card-header');
-      if (header && !header.querySelector('.done-badge')) {
-        header.insertAdjacentHTML('afterbegin', `<span class="done-badge">Done</span>`);
-      }
+     const header = card.querySelector('.reminder-card-header');
+if (header && !header.querySelector('.done-badge')) {
+  header.insertAdjacentHTML('afterbegin', `<span class="done-badge">Done</span>`);
+}
     }
   });
 });
