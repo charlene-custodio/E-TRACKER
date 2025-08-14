@@ -1,125 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Add New Student | E-TRACKER</title>
-  <link rel="stylesheet" href="css/add_student.css"/>
+  <title>E-Tracker Dashboard - Add Student</title>
+  <link rel="stylesheet" href="/css/dashboard.css" />
+  <link rel="stylesheet" href="/css/add_student.css" />
 </head>
 <body>
-  <div class="add-student-container">
-    <div class="form-header">
-      <img src="images/logo.png" alt="E-TRACKER Logo" class="logo"/>
-      <h2>Add New Student</h2>
-      <p class="subtitle">Fill in the details below</p>
+
+  <!-- Navbar -->
+   <header class="navbar">
+    <div class="nav-title">
+      <img src="images/logo.png" alt="Logo" class="logo"/>
+      <div class="app-name">
+        <h2>E-Tracker</h2>
+        <p>Anecdotal Report & Student Record Tracker</p>
+      </div>
     </div>
+        <div class="nav-right">
+      <!-- <div class="notification">
+        <span class="icon">🔔</span>
+        <span class="notif-count">12</span>
+      </div> -->
+      <div class="admin-info">
+        <span style="font-weight: 800;"><%= user.role || "User" %></span>
+        <span><%= user.username || "User" %></span>
+      </div>
+    </div>
+  </header>
 
-    <form class="student-form" enctype="multipart/form-data" method="POST" action="/add_student">
-      <div class="avatar-upload">
-        <label for="id_picture">
-          <img src="images/avatar-placeholder.png" alt="Student Photo" id="preview" class="avatar-preview"/>
-        </label>
-        <input type="file" id="id_picture" name="id_picture" accept="image/*" onchange="previewImage(event)" hidden/>
-        <button type="button" onclick="document.getElementById('id_picture').click()" class="upload-btn">Upload Photo</button>
+  <div class="container">
+    <!-- Sidebar  -->
+<aside class="sidebar">
+  <a href="/dashboard" class="sidebar-link active">
+    <span class="icon">
+      <!-- Lucide: layout-dashboard -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="9" rx="1"/>
+        <rect x="14" y="3" width="7" height="5" rx="1"/>
+        <rect x="14" y="12" width="7" height="9" rx="1"/>
+        <rect x="3" y="16" width="7" height="5" rx="1"/>
+      </svg>
+    </span>
+    <span>Dashboard</span>
+  </a>
+  <a href="/reminders" class="sidebar-link">
+    <span class="icon">
+      <!-- Lucide: bell -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell" viewBox="0 0 24 24">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </span>
+    <span>Reminders</span>
+  </a>
+  <a href="/logout" class="sidebar-link logout-link">
+    <span class="icon">
+      <!-- Lucide: log-out -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out" viewBox="0 0 24 24">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+    </span>
+    <span>Logout</span>
+  </a>
+</aside>
+    <main class="main-content">
+      <div class="dashboard-header">
+        <h1>Add Student</h1>
       </div>
 
-      <div class="input-group">
-        <label for="name">Full name</label>
-        <input type="text" id="name" name="name" required/>
+      <div class="add-student-container">
+        <form class="student-form" enctype="multipart/form-data" method="POST" action="/add_student">
+          <div class="avatar-upload">
+            <label for="id_picture">
+              <img src="/images/empty-profile.png" alt="Student Photo" id="preview" class="avatar-preview"/>
+            </label>
+            <input type="file" id="id_picture" name="id_picture" accept="image/*" onchange="previewImage(event)" hidden/>
+            <button type="button" onclick="document.getElementById('id_picture').click()" class="upload-btn">Upload Photo</button>
+          </div>
+          <div class="form-grid">
+            <div>
+              <div class="input-group">
+                <label for="name">Full name</label>
+                <input type="text" id="name" name="name" required/>
+              </div>
+              <div class="input-group">
+                <label for="lrn">LRN</label>
+                <input type="text" name="lrn" id="lrn" required />
+              </div>
+              <div class="input-group">
+                <label for="grade_level">Grade Level</label>
+                <select id="grade_level" name="grade_level" required>
+                  <option value="">Select grade</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label for="school_name">School Name</label>
+                <input type="text" id="school_name" name="school_name" required/>
+              </div>
+              <div class="input-group">
+                <label for="birthday">Birthday</label>
+                <input type="date" id="birthday" name="birthday" required/>
+              </div>
+              <div class="input-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="1" max="30" required/>
+              </div>
+              <div class="input-group">
+                <label for="sex">Sex</label>
+                <div class="radio-row">
+                  <label class="radio-label">
+                    <input type="radio" name="sex" value="Male" required /> Male
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="sex" value="Female" required /> Female
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="input-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" required/>
+              </div>
+              <div class="input-group">
+                <label for="guardian">Guardian Name</label>
+                <input type="text" id="guardian" name="guardian"/>
+              </div>
+              <div class="input-group">
+                <label for="contact">Contact Number</label>
+                <input type="tel" id="contact" name="contact"/>
+              </div>
+              <div class="input-group">
+                <label for="school_year">School Year</label>
+                <input type="text" id="school_year" name="school_year"/>
+              </div>
+              <div class="input-group">
+                <label for="section">Section</label>
+                <input type="text" id="section" name="section"/>
+              </div>
+              <div class="input-group">
+                <label for="adviser">Adviser Name</label>
+                <input type="text" id="adviser" name="adviser"/>
+              </div>
+              <div class="input-group">
+                <label for="enrollment_status">Enrollment Status</label>
+                <select id="enrollment_status" name="enrollment_status">
+                  <option value="">Select status</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+              </div>
+              <!-- <div class="input-group">
+                <label for="learning_difficulty">Learning Difficulty (optional)</label>
+                <textarea id="learning_difficulty" name="learning_difficulty" rows="2"></textarea>
+              </div> -->
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Add Student</button>
+            <a href="/dashboard" class="secondary-btn">Cancel</a>
+          </div>
+        </form>
       </div>
-      <div class="input-group">
-        <label for="lrn">LRN</label>
-        <input type="text" name="lrn" id="lrn" required />
-      </div>
-      <div class="input-group">
-        <label for="grade_level">Grade Level</label>
-        <select id="grade_level" name="grade_level" required>
-          <option value="">Select grade</option>
-
-          <option value="7">1</option>
-          <option value="7">2</option>
-          <option value="7">3</option>
-          <option value="7">4</option>
-          <option value="7">5</option>
-          <option value="7">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label for="school_name">School Name</label>
-        <input type="text" id="school_name" name="school_name" required/>
-      </div>
-      <div class="input-row">
-        <div class="input-group">
-          <label for="birthday">Birthday</label>
-          <input type="date" id="birthday" name="birthday" required/>
-        </div>
-        <div class="input-group">
-          <label for="age">Age</label>
-          <input type="number" id="age" name="age" min="1" max="30" required/>
-        </div>
-      </div>
-      <div class="input-group">
-  <label for="sex">Sex</label>
-  <div class="radio-row">
-    <label class="radio-label">
-      <input type="radio" name="sex" value="Male" required /> Male
-    </label>
-    <label class="radio-label">
-      <input type="radio" name="sex" value="Female" required /> Female
-    </label>
+    </main>
   </div>
-</div>
-      <div class="input-group">
-        <label for="address">Address</label>
-        <input type="text" id="address" name="address" required/>
-      </div>
-      <div class="input-group">
-        <label for="guardian">Guardian Name</label>
-        <input type="text" id="guardian" name="guardian"/>
-      </div>
-      <div class="input-group">
-        <label for="contact">Contact Number</label>
-        <input type="tel" id="contact" name="contact"/>
-      </div>
-      <div class="input-row">
-        <div class="input-group">
-          <label for="school_year">School Year</label>
-          <input type="text" id="school_year" name="school_year"/>
-        </div>
-        <div class="input-group">
-          <label for="section">Section</label>
-          <input type="text" id="section" name="section"/>
-        </div>
-      </div>
-      <div class="input-group">
-        <label for="adviser">Adviser Name</label>
-        <input type="text" id="adviser" name="adviser"/>
-      </div>
-      <div class="input-group">
-        <label for="enrollment_status">Enrollment Status</label>
-        <select id="enrollment_status" name="enrollment_status">
-          <option value="">Select status</option>
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label for="learning_difficulty">Learning Difficulty (optional)</label>
-        <textarea id="learning_difficulty" name="learning_difficulty" rows="2"></textarea>
-      </div>
-      <div class="form-actions">
-        <button type="submit" class="primary-btn">Add Student</button>
-        <a href="/dashboard" class="secondary-btn">Cancel</a>
-      </div>
-    </form>
-  </div>
-
   <script>
     function previewImage(event) {
       const input = event.target;

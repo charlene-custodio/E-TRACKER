@@ -6,6 +6,7 @@
   <title>E-Tracker Dashboard</title>
   <link rel="stylesheet" href="css/dashboard.css" />
   <link rel="stylesheet" href="css/modal.css" />
+  <link rel="stylesheet" href="css/anecdotal-modal.css">
 </head>
 <body>
 
@@ -18,13 +19,13 @@
       </div>
     </div>
     <div class="nav-right">
-      <div class="notification">
+      <!-- <div class="notification">
         <span class="icon">🔔</span>
         <span class="notif-count">12</span>
-      </div>
+      </div> -->
       <div class="admin-info">
+        <span style="font-weight: 800;"><%= user.role || "User" %></span>
         <span><%= user.username || "User" %></span>
-        <span><%= user.role || "User" %></span>
       </div>
     </div>
   </header>
@@ -32,29 +33,40 @@
   <!-- Main Container -->
   <div class="container">
     <!-- Sidebar  -->
-   <aside class="sidebar">
+<aside class="sidebar">
   <a href="/dashboard" class="sidebar-link active">
-    <span class="icon">◼◼</span>
+    <span class="icon">
+      <!-- Lucide: layout-dashboard -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="9" rx="1"/>
+        <rect x="14" y="3" width="7" height="5" rx="1"/>
+        <rect x="14" y="12" width="7" height="9" rx="1"/>
+        <rect x="3" y="16" width="7" height="5" rx="1"/>
+      </svg>
+    </span>
     <span>Dashboard</span>
   </a>
   <a href="/reminders" class="sidebar-link">
-    <span class="icon">◼◼</span>
+    <span class="icon">
+      <!-- Lucide: bell -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell" viewBox="0 0 24 24">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </span>
     <span>Reminders</span>
   </a>
-  <a href="archives.html" class="sidebar-link">
-    <span class="icon">◼◼</span>
-    <span>Archives</span>
+  <a href="/logout" class="sidebar-link logout-link">
+    <span class="icon">
+      <!-- Lucide: log-out -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out" viewBox="0 0 24 24">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+    </span>
+    <span>Logout</span>
   </a>
-  <a href="settings.html" class="sidebar-link">
-    <span class="icon">◼◼</span>
-    <span>Settings</span>
-  </a>
-  <a href="/logout" class="sidebar-link">
-  <span class="icon">◼◼</span>
-  <span>Logout</span>
-</a>
-
-</aside>
 </aside>
 
 <main class="main-content">
@@ -82,45 +94,45 @@
         <a href="#" class="btn-icon view-student-btn" data-id="<%= student.id %>" title="View Student">👁️</a>
         <a href="/students/<%= student.id %>/anecdotal-reports" class="btn-icon" title="View Anecdotal Reports">🔎</a>
         <!-- Add Anecdotal Report button for each student -->
-            <button class="add-anecdotal-btn" 
+            <button class="add-anecdotal-btn btn-icon" 
               data-student-id="<%= student.id %>">
-            + Add Anecdotal Report
-      </button>
+            📝
+            </button>
       </div>
     </div>
   <% }); %>
 </div>
 
 <!-- Modal (at end of body, NOT inside students grid) -->
-<div id="anecdotalReportModal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <h2>Add Anecdotal Report & Sessions</h2>
+<div id="anecdotalReportModal" class="anec-modal" style="display:none;">
+  <div class="anec-modal-content">
+    <h2 class="anec-modal-title">Add Anecdotal Report & Sessions</h2>
     <form id="anecdotalReportForm" autocomplete="off">
-      <div class="input-group">
-        <label>Report Date</label>
-        <input type="date" name="report_date" required />
+      <div class="anec-input-group">
+        <label for="report_date">Report Date</label>
+        <input type="date" name="report_date" id="report_date" required />
       </div>
-      <div class="input-group">
-        <label>Learner Difficulties</label>
-        <textarea name="learner_difficulties" required></textarea>
+      <div class="anec-input-group">
+        <label for="learner_difficulties">Learner Difficulties</label>
+        <textarea name="learner_difficulties" id="learner_difficulties" required></textarea>
       </div>
-      <div class="input-group">
-        <label>Intervention</label>
-        <textarea name="intervention" required></textarea>
+      <div class="anec-input-group">
+        <label for="intervention">Intervention</label>
+        <textarea name="intervention" id="intervention" required></textarea>
       </div>
-      <div class="input-group">
-        <label>Result</label>
-        <textarea name="result" required></textarea>
+      <div class="anec-input-group">
+        <label for="result">Result</label>
+        <textarea name="result" id="result" required></textarea>
       </div>
       <hr />
-      <div id="sessionsContainer">
-        <h3>Anecdotal Sessions</h3>
+      <div id="anec-sessionsContainer">
+        <h3 class="anec-sessions-title">Anecdotal Sessions</h3>
         <!-- Session entries will be appended here -->
       </div>
-      <button type="button" id="addSessionBtn" class="secondary-btn">+ Add Session</button>
-      <div class="modal-actions">
-        <button type="submit" class="primary-btn">Submit Report & Sessions</button>
-        <button type="button" class="secondary-btn" id="closeAnecdotalReportModal">Cancel</button>
+      <button type="button" id="anec-addSessionBtn" class="anec-secondary-btn anec-session-add-btn">+ Add Session</button>
+      <div class="anec-modal-actions">
+        <button type="submit" class="anec-primary-btn">Submit Report & Sessions</button>
+        <button type="button" class="anec-secondary-btn" id="anec-closeAnecdotalReportModal">Cancel</button>
       </div>
     </form>
   </div>
@@ -143,6 +155,7 @@
 
 <script src="/js/anecdotalReport.js"></script>
 <script src="/js/viewStudent.js"></script>
+<script src="/js/anecdotal-modal.js"></script>
 <script >
 document.addEventListener('DOMContentLoaded', function() {
   const searchInput = document.getElementById('studentSearch');

@@ -8,7 +8,8 @@ import authRoutes from "./routes/authRoutes.js";
 import testDbRoutes from './routes/testDb.js';
 import adminRoutes from "./routes/adminRoutes.js";
 import tutorRoutes from "./routes/tutorRoutes.js";
-import anecdotalReportRoutes from "./routes/anecdotalReportRoutes.js"
+import anecdotalReportRoutes from "./routes/anecdotalReportRoutes.js";
+import landingRoutes from "./routes/landingRoutes.js";
 // Load environment variables
 dotenv.config();
 
@@ -37,9 +38,11 @@ app.use(sessionMiddleware);
 // For testing purposes API Connection
 app.use('/api', testDbRoutes);
 
+app.use("/", landingRoutes); // Always FIRST
+
 //routes
 app.use("/", authRoutes);
-app.use("/", adminRoutes);
+// app.use("/", adminRoutes);
 app.use("/", tutorRoutes);
 
 import studentRoutes from "./routes/studentRoutes.js";

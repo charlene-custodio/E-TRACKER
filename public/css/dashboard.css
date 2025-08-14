@@ -258,3 +258,13 @@ body {
   border-radius: 8px;
 }
 
+/* Logout link - make it red */
+ .logout-link {
+  background-color: #ff4b4b;
+  color: #fff;
+  border: none;
+}
+.logout-link:hover {
+  background-color: #ff7b7b;
+  color: #fff;
+}

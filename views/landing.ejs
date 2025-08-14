@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-Tracker | Landing</title>
+  <link rel="stylesheet" href="/css/landing.css" />
+</head>
+<body>
+  <header class="landing-navbar">
+    <div class="landing-brand">
+      <img class="landing-logo" src="/images/logo.png" alt="E-Tracker logo" />
+      <span class="landing-app-name">E-Tracker</span>
+    </div>
+    <nav>
+      <a href="/login" class="landing-nav-btn">Login</a>
+      <a href="/register" class="landing-nav-btn accent">Register</a>
+    </nav>
+  </header>
+  <main class="landing-main">
+    <section class="landing-hero">
+      <div class="landing-hero-bg"></div>
+      <h1>
+        <span class="gradient-text">Welcome to E-Tracker</span>
+      </h1>
+      <p>Anecdotal Report & Student Record Tracker for Modern Educators</p>
+      <a href="/login" class="landing-cta-btn">Get Started</a>
+    </section>
+    <section class="landing-features">
+      <h2>Features</h2>
+      <div class="feature-list">
+        <div class="feature-item">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#48628D" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          <span>Easy student record management</span>
+        </div>
+        <div class="feature-item">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#48628D" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h10v10H7z"/></svg>
+          <span>Track anecdotal reports and interventions</span>
+        </div>
+        <div class="feature-item">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#48628D" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/><path d="M9 4v16"/></svg>
+          <span>Responsive, modern design</span>
+        </div>
+        <div class="feature-item">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#48628D" stroke-width="2"><circle cx="9" cy="7" r="4"/><circle cx="15" cy="17" r="4"/></svg>
+          <span>Role-based access (Admin, Tutor)</span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="landing-footer">
+    <small>&copy; <%= new Date().getFullYear() %> E-Tracker &mdash; Crafted for educators</small>
+  </footer>
+</body>
+</html>

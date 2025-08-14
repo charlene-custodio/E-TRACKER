@@ -21,98 +21,6 @@ body {
   background: #fff;
   color: var(--reminder-dark);
 }
-.navbar {
-  background: var(--nav-bg);
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 26px;
-  min-height: 64px;
-}
-.nav-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.logo {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-}
-.app-name h2 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  letter-spacing: .5px;
-}
-.app-name p {
-  font-size: 0.9rem;
-  margin-top: -5px;
-  font-weight: 500;
-  color: #e7eefd;
-}
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-.notification { position: relative; }
-.notification .icon { font-size: 24px; cursor: pointer; }
-.notif-count {
-  background: #e11d48;
-  color: #fff;
-  font-size: 11px;
-  border-radius: 50%;
-  padding: 2px 6px;
-  position: absolute;
-  top: -7px; right: -13px;
-}
-.admin-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,.09);
-  padding: 6px 18px;
-  border-radius: 12px;
-  font-weight: 600;
-}
-
-.container {
-  display: flex;
-  height: calc(100vh - 64px);
-}
-
-/* --- Sidebar --- */
-.sidebar {
-  background: var(--sidebar-bg);
-  padding: 28px 0 0 0;
-  width: 245px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  border-right: 1.5px solid #e3e9f4;
-}
-.sidebar-link {
-  text-decoration: none;
-  background: var(--sidebar-link);
-  color: var(--reminder-dark);
-  padding: 16px 26px;
-  border-radius: 13px 13px 13px 13px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 1.08rem;
-  transition: 0.23s;
-  margin: 0 18px 0 18px;
-}
-.sidebar-link:hover {
-  background: var(--sidebar-link-hover);
-}
-.sidebar-link.active {
-  background: var(--sidebar-link-active);
-  color: var(--sidebar-link-active-text);
-}
 
 /* --- Main Content --- */
 .main-content {
@@ -400,4 +308,15 @@ body {
   .reminders-title { font-size: 1.35rem; }
   .reminder-card { min-width: 99vw; }
   .sidebar { display: none; }
+}
+
+/* Logout link - make it red */
+ .logout-link {
+  background-color: #ff4b4b;
+  color: #fff;
+  border: none;
+}
+.logout-link:hover {
+  background-color: #ff7b7b;
+  color: #fff;
 }
