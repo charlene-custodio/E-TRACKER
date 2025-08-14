@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   box-sizing: border-box;
 }
@@ -23,7 +23,7 @@ body {
 .nav-title {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 .logo {
   height: 44px;
@@ -31,90 +31,103 @@ body {
   border-radius: 50%;
 }
 .app-name h2 {
-  font-size: 1.14rem;
+  font-size: 1.15rem;
   margin-bottom: 2px;
   color: #fff;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
 }
 .app-name p {
-  font-size: 0.83rem;
+  font-size: 0.95rem;
   color: #c6d6f0;
   margin-top: -5px;
+  letter-spacing: 0.02em;
 }
 
 /* MAIN CONTAINER */
 .anec-main {
-  max-width: 1280px;
+  max-width: 1100px;
+  width: 97vw;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0;
 }
+
+/* PROFILE BANNER */
 .student-profile-banner {
-  margin-top: 38px;
-  margin-bottom: 42px;
-  background: linear-gradient(120deg, #dde6f8 60%, #e6ebfa 100%);
-  border-radius: 38px;
-  box-shadow: 0 6px 32px rgba(49,65,106,0.17);
-  padding: 22px 36px 22px 28px;
+  margin-top: 36px;
+  margin-bottom: 38px;
+  background: linear-gradient(120deg, #dde6f8 65%, #e6ebfa 100%);
+  border-radius: 32px;
+  box-shadow: 0 8px 32px rgba(49,65,106,0.13), 0 4px 22px rgba(70,98,141,0.07);
+  padding: 24px 38px 24px 26px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 34px;
-  min-width: 440px;
-  max-width: 530px;
+  gap: 28px;
+  min-width: 340px;
+  max-width: 580px;
+  width: 100%;
+  /* AI style: asymmetric shadow */
+  box-shadow: 0 8px 34px -6px #23335a33, 6px 12px 38px -10px #48628d22;
 }
 .profile-img {
-  width: 90px;
-  height: 90px;
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #192444;
   background: #fff;
-  box-shadow: 0 2px 14px rgba(44,62,80,0.14);
+  box-shadow: 0 2px 10px #3f5aaa22, 4px 6px 20px -8px #19244422;
 }
 .profile-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: 10px;
+  padding-left: 8px;
+  gap: 4px;
 }
 .profile-name {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   font-weight: 900;
   letter-spacing: 2px;
   color: #192444;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   font-family: 'Inter', Arial, sans-serif;
+  text-shadow: 0 1px 5px #e6ebfa;
 }
 .profile-meta {
-  color: #1c2846;
-  font-size: 1.03rem;
-  margin-bottom: 2px;
-  font-weight: 500;
+  color: #31416a;
+  font-size: 1.04rem;
+  margin-bottom: 0;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  opacity: .92;
+  text-shadow: 0 1px 3px #dde6f8;
 }
 
 /* REPORT ROW */
 .anec-report-row {
   width: 100%;
-  max-width: 1020px;
+  max-width: 960px;
   display: flex;
   flex-direction: row;
-  gap: 36px;
+  gap: 30px;
   justify-content: center;
-  margin-bottom: 40px;
-  min-height: 320px;
+  margin-bottom: 34px;
+  min-height: 240px;
 }
 .report-card {
   background: #d8e3fa;
-  border-radius: 14px;
-  box-shadow: 0 3px 16px rgba(44,62,80,0.11);
+  border-radius: 14px 38px 18px 18px;
+  box-shadow: 0 3px 16px rgba(44,62,80,0.11), 8px 12px 34px -12px #3f5aaa33;
   flex: 1;
-  min-width: 320px;
-  min-height: 280px;
-  max-width: 400px;
-  padding: 32px 24px 20px 24px;
+  min-width: 260px;
+  min-height: 200px;
+  max-width: 440px;
+  padding: 28px 20px 16px 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -132,32 +145,33 @@ body {
   background: transparent;
   border: none;
   box-shadow: none;
+  min-height: 200px;
 }
 .report-card h3 {
-  font-size: 1.12rem;
+  font-size: 1.10rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: #23335a;
   letter-spacing: 0.5px;
 }
 .report-card p {
   margin: 4px 0 2px 0;
-  font-size: 1rem;
+  font-size: 0.98rem;
   color: #23335a;
 }
 .sessions-list {
   background: #e6edfa;
-  border-radius: 12px;
-  padding: 12px 10px 7px 10px;
+  border-radius: 11px;
+  padding: 10px 8px 5px 8px;
   margin-top: 7px;
   margin-bottom: 7px;
-  box-shadow: 0 1px 6px rgba(44,62,80,0.07);
+  box-shadow: 0 1px 6px rgba(44,62,80,0.06);
 }
 .sessions-list h4 {
-  font-size: 1.01rem;
+  font-size: 0.99rem;
   font-weight: 600;
   color: #4160a0;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 .sessions-list ul {
   list-style: none;
@@ -165,21 +179,21 @@ body {
   margin: 0;
 }
 .sessions-list li {
-  font-size: 0.98rem;
+  font-size: 0.97rem;
   color: #2e4370;
   display: flex;
-  gap: 16px;
-  margin-bottom: 4px;
+  gap: 13px;
+  margin-bottom: 3px;
 }
 .sessions-list strong {
   color: #31416a;
   font-weight: 500;
-  margin-right: 5px;
+  margin-right: 3px;
 }
 .report-actions {
-  margin-top: 14px;
+  margin-top: 10px;
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 .report-actions button {
   background: #c6d6f0;
@@ -187,10 +201,11 @@ body {
   color: #294069;
   border-radius: 7px;
   padding: 7px 18px;
-  font-size: 1rem;
+  font-size: 0.97rem;
   cursor: pointer;
   font-weight: 600;
-  transition: background 0.18s;
+  transition: background 0.18s, box-shadow 0.18s;
+  box-shadow: 0 2px 8px #3f5aaa18;
 }
 .report-actions button:hover {
   background: #e3ecfd;
@@ -199,75 +214,87 @@ body {
 /* ACTION ROW BOTTOM */
 .action-row {
   display: flex;
-  gap: 48px;
+  gap: 36px;
   justify-content: center;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 .action-btn {
-  background: #dde6f8;
-  color: #192444;
+   background: #23335a;
+  color: #fff;
   border: none;
-  border-radius: 13px;
-  padding: 14px 38px;
-  font-size: 1.17rem;
-  font-weight: 700;
-  box-shadow: 0 2px 14px rgba(49,65,106,0.08);
+  border-radius: 14px 32px 14px 14px;
+  padding: 14px 40px;
+  font-size: 1.07rem;
+  font-weight: 800;
+  box-shadow: 0 2px 12px #3f5aaa19, 2px 4px 24px -10px #23335a11;
   cursor: pointer;
-  transition: background 0.18s, color 0.18s;
-  margin-bottom: 12px;
+  transition: background 0.16s, color 0.16s;
+  margin-bottom: 8px;
   text-decoration: none;
   text-align: center;
+  letter-spacing: 0.8px;
 }
 .action-btn:hover, .action-btn:focus {
   background: #3F5AAA;
   color: #fff;
+  box-shadow: 0 4px 16px #23335a1a;
 }
 .back-btn {
   background: #23335a;
-  color: #ffff;
+  color: #fff;
 }
 .back-btn:hover, .back-btn:focus {
   background: #3F5AAA;
   color: #fff;
 }
 
+/* Responsive */
 @media (max-width: 1100px) {
+  .anec-main {
+    max-width: 98vw;
+  }
   .anec-report-row {
-    flex-direction: column;
-    gap: 24px;
-    align-items: center;
+    gap: 18px;
+    max-width: 96vw;
   }
   .report-card, .report-card.empty {
-    max-width: 96vw;
+    max-width: 99vw;
     min-width: 0;
     width: 100%;
   }
+  .student-profile-banner {
+    max-width: 96vw;
+    padding: 18px 8vw 18px 8vw;
+  }
 }
+
 @media (max-width: 700px) {
   .student-profile-banner {
     min-width: unset;
     max-width: 99vw;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     padding: 14px 3vw 10px 3vw;
   }
   .anec-main {
-    padding: 6px 0 0 0;
+    padding: 4px 0 0 0;
   }
   .profile-img {
-    width: 65px; height: 65px;
+    width: 60px; height: 60px;
   }
   .anec-report-row {
+    flex-direction: column;
+    gap: 12px;
     max-width: 99vw;
     padding: 0 2vw;
   }
   .report-card, .report-card.empty {
-    padding: 12px 3vw 12px 3vw;
+    padding: 10px 2vw 10px 2vw;
   }
   .action-row {
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
   }
 }
